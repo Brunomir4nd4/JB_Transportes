@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JB Transportes - Depósito DHU7993</title>
+    <link rel="shortcut icon" href="img/favicon.jpeg" type="image/x-icon">
+    <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');</style>
+    <link rel="stylesheet" href="caminhao.css">
+</head>
+<body id="body-deposito">
+
+    <header>
+        <div id="navbar-conteiner">
+            <a href="index.html"><img src="img/Logo.jpeg" alt="Logo"></a>
+            <nav>
+                <a class="navbar-item" href="caminhao1.html">DJE9J97</a>
+                <a class="navbar-item" href="index.html">Home</a>
+                <button id="button-navbar" class="navbar-item" onclick="toggleModalFechaMes()">Fechar mês</button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-deposito">
+        <div id="showcase-container-deposito">
+            <h1>Controle do Caminhão DHU7993</h1>
+            <table id="tabela">
+                <thead>
+                    <tr>
+                        <th>Peça</th>
+                        <th>Valor</th>
+                        <th>Quantidade</th>
+                        <th>Parcelas</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" id="nome" placeholder="Nome do Produto">
+                        </td>
+                        <td>
+                            <input type="number" id="valor" placeholder="Valor">
+                        </td>
+                        <td>
+                            <input type="number" id="qtd" placeholder="Qtd">
+                        </td>
+                        <td>
+                            <select id="parcelas">
+                                <option value="0">Qtd. de Parcelas</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button id="button-submit">Adicionar</button>
+                        </td>
+                    </tr>
+
+                    <tr></tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!----------------- Modal para alterar o produto ----------------->
+
+        <div id="fade" class="hide"></div>
+        <div id="modal" class="hide">
+            <div id="modal-header">
+                <h2 id="h2-modal-header">Alteração do Produto</h2>
+            </div>
+            <div id="modal-body">
+
+                <table id="tabela">
+                    <thead>
+                        <tr>
+                            <th>Peça</th>
+                            <th>Valor</th>
+                            <th>Quantidade</th>
+                            <th>Parcelas</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+    
+                    <tbody id="tbody">
+                        <tr>
+                            <td>
+                                <input type="text" id="nome-modal" placeholder="Nome do Produto">
+                            </td>
+                            <td>
+                                <input type="number" id="valor-modal" placeholder="Valor">
+                            </td>
+                            <td>
+                                <input type="number" id="qtd-modal" placeholder="Qtd">
+                            </td>
+                            <td>
+                                <select id="parcelas-modal">
+                                    <option value="0">Qtd. de Parcelas</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </td>
+                        </tr>
+    
+                    </tbody>
+                </table>
+
+                <div id="modal-buttons">
+                    <button id="chage-button-modal">Salvar alteração</button> 
+                    <button id="dell-button-modal">Deletar</button> 
+                    <button id="close-modal">Fechar</button> 
+                </div>
+            </div>
+        </div>
+
+
+        <!----------------- Modal para fazer o fechamento do mês ----------------->
+
+        <div id="fade-fecha-mes" class="hide"></div>
+        <div id="modal-fecha-mes" class="hide">
+            <div id="modal-header-fecha-mes">
+                <h2 id="h2-modal-header">Alteração do Produto</h2>
+            </div>
+            <div id="modal-body-fecha-mes">
+
+                <p>DJE9J97</p>
+                <table id="tabela">
+                    <thead>
+                        <tr>
+                            <th>Litros</th>
+                            <th>Km</th>
+                            <th>Preço P/ Km</th>
+                            <th>Valor Bruto</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody id="tbody">
+                        <tr>
+                            <td>
+                                <input type="number" class="litros-modal" placeholder="Litros">
+                            </td>
+                            <td>
+                                <input type="number" class="Km-modal" placeholder="Km">
+                            </td>
+                            <td>
+                                <input type="number" class="Preco-Km-modal" placeholder="Preço P/ Km">
+                            </td>
+                            <td>
+                                <input type="number" class="Valor-Bruto-modal" placeholder="Valor Bruto">
+                            </td>
+                        </tr>
+    
+                    </tbody>
+                </table>
+
+                <p>DHU7993</p>
+                <table id="tabela">
+    
+                    <tbody id="tbody">
+                        <tr>
+                            <td>
+                                <input type="number" class="litros-modal" placeholder="Litros">
+                            </td>
+                            <td>
+                                <input type="number" class="Km-modal" placeholder="Km">
+                            </td>
+                            <td>
+                                <input type="number" class="Preco-Km-modal" placeholder="Preço P/ Km">
+                            </td>
+                            <td>
+                                <input type="number" class="Valor-Bruto-modal" placeholder="Valor Bruto">
+                            </td>
+                        </tr>
+    
+                    </tbody>
+                </table>
+
+                <div id="modal-buttons">
+                    <button id="chage-button-modal">Salvar alteração</button> 
+                    <button id="close-modal">Fechar</button> 
+                </div>
+            </div>
+        </div>
+    </main>
+    
+</body>
+<script src="script.js"></script>
+</html>

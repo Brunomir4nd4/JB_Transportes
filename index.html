@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JB Transportes - Adiministrativo</title>
+    <link rel="shortcut icon" href="img/favicon.jpeg" type="image/x-icon">
+    <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');</style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div id="navbar-conteiner">
+            <a href="index.html"><img src="img/Logo.jpeg" alt="Logo"></a>
+            <button id="button-navbar" class="navbar-item" onclick="toggleModalFechaMes()">Fechar mês</button>
+        </div>
+    </header>
+
+    <main>
+        <h1>Bem-vindo ao Controle da JB Transportes</h1>
+        <div id="showcase-container-principal">
+            <h1>Escolha o Caminhão</h1>
+            <p>Placas</p>
+            <nav id="showcase-button-pricipal">
+                <a href="caminhao1.html">
+                    <button>DJE9J97</button>
+                </a>
+                <a href="caminhao2.html">
+                    <button>DHU7993</button>
+                </a>
+            </nav>
+        </div>
+
+        <!----------------- Modal para fazer o fechamento do mês ----------------->
+
+        <div id="fade-fecha-mes" class="hide"></div>
+        <div id="modal-fecha-mes" class="hide">
+            <div id="modal-header-fecha-mes">
+                <h2 id="h2-modal-header">Alteração do Produto</h2>
+            </div>
+            <div id="modal-body-fecha-mes">
+
+                <p>DJE9J97</p>
+                <table id="tabela">
+                    <thead>
+                        <tr>
+                            <th>Litros</th>
+                            <th>Km</th>
+                            <th>Preço P/ Km</th>
+                            <th>Valor Bruto</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody id="tbody">
+                        <tr>
+                            <td>
+                                <input type="number" class="litros-modal" placeholder="Litros">
+                            </td>
+                            <td>
+                                <input type="number" class="Km-modal" placeholder="Km">
+                            </td>
+                            <td>
+                                <input type="number" class="Preco-Km-modal" placeholder="Preço P/ Km">
+                            </td>
+                            <td>
+                                <input type="number" class="Valor-Bruto-modal" placeholder="Valor Bruto">
+                            </td>
+                        </tr>
+    
+                    </tbody>
+                </table>
+
+                <p>DHU7993</p>
+                <table id="tabela">
+    
+                    <tbody id="tbody">
+                        <tr>
+                            <td>
+                                <input type="number" class="litros-modal" placeholder="Litros">
+                            </td>
+                            <td>
+                                <input type="number" class="Km-modal" placeholder="Km">
+                            </td>
+                            <td>
+                                <input type="number" class="Preco-Km-modal" placeholder="Preço P/ Km">
+                            </td>
+                            <td>
+                                <input type="number" class="Valor-Bruto-modal" placeholder="Valor Bruto">
+                            </td>
+                        </tr>
+    
+                    </tbody>
+                </table>
+
+                <div id="modal-buttons">
+                    <button id="chage-button-modal">Salvar alteração</button> 
+                    <button id="close-modal">Fechar</button> 
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <footer>
+        <div id="footer-content">
+            <ul id="footer-menu">
+                <h3>Contatos da Empresa</h3>
+                <li class="footer-menu-item">Tel 62 9 9364-1605</li>
+                <li class="footer-menu-item">Email valteci2013@gmail.com</li>
+            </ul>
+            <div id="rights">
+                <div id="country">
+                    <p>Brasil</p>
+                    <img src="img/brazil.png" alt="Bandeiro do Brasil">
+                </div>
+                <p id="Copy">&copy; 2023 JB Transportes</p>
+            </div>
+        </div>
+    </footer>
+</body>
+<script src="script.js"></script>
+</html>

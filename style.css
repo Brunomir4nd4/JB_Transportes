@@ -1,0 +1,393 @@
+:root {
+    --default-blue: #19244d;
+    --default-yelow: #FFCC57;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--default-blue);
+    color: #fff;
+}
+
+/* Página principal */
+    /* NavBar */
+    header {
+        display: flex;
+        justify-content: center;
+        top: 0;
+        position: fixed;
+        width: 100%;
+        background-color: rgba(25, 36, 77, 0.6);
+        min-height: 60px;
+    }
+
+    #navbar-conteiner {
+        display: flex;
+        width: 80%;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #navbar-conteiner img {
+        width: 200px;
+    }
+
+    #navbar-conteiner nav {
+        list-style: none;
+        display: flex;
+        padding: 20px;
+        font-weight: bold;
+    }
+
+    #button-navbar {
+        background: none;
+        border: none;
+        padding: 20px;
+        font-weight: bold;
+        font-size: .95rem;
+    }
+
+    #navbar-conteiner .navbar-item {
+        color: #fff;
+        padding: 0 20px;
+        text-decoration: none;
+        transition: all 300ms ease;
+    }
+
+    #navbar-conteiner  .navbar-item:hover {
+        color: var(--default-yelow);
+        cursor: pointer;
+    }
+
+/* Showcase */
+    main {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: url(img/IMG_20231213_183827.jpg) center center/cover;
+        background-color: rgba(0, 0, 0, 0.4);
+        background-blend-mode: color;
+    }
+
+    main #showcase-container-principal h1{
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    main p{
+        display: flex;
+        justify-content: center;
+        font-size: 1.4rem;
+        margin-bottom: 15px
+    }
+
+    main #showcase-container-principal #showcase-button-pricipal {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    main #showcase-container-principal #showcase-button-pricipal button{
+        padding: 15px 40px;
+        background-color: var(--default-yelow);
+        border: none;
+        border-radius: 13px;
+        color: #121317;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: all 300ms ease;
+    }
+
+    main #showcase-container-principal #showcase-button-pricipal button:hover {
+        background-color: #fad88a;
+        color: #2f3b67;
+        cursor: pointer;
+    }
+
+    /* Modal */
+
+#nome-modal{
+    width: 250px;
+}
+
+#valor-modal {
+    width: 100px;
+}
+
+#qtd-modal, #parcelas-modal {
+    width: 70px;
+}
+
+#modal-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 15px;
+}
+
+#close-modal, #chage-button-modal, #dell-button-modal{
+    padding: .6rem 1.2rem;
+    background-color: #888;
+    color: black;
+    border: none;
+    border-radius: .25rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 300ms ease;
+}
+
+#chage-button-modal {
+    background-color: #FFCC57;
+}
+
+#dell-button-modal {
+    background-color: brown;
+}
+
+#fade, #modal {
+    transition: .5s;
+    opacity: 1;
+    pointer-events: all; /* Os eventos vao funcionar apenas quando a opacidade é 1*/
+
+}
+
+#fade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 5; /* Coloca o fade em uma camada a cima da página*/
+}
+
+#modal {
+    position: fixed;
+    /* Manipulando elemento com position: fixed */
+    left: 50%;
+    top: 50%; /* Coloca o elemento no meio da tela, mas não leva em consideração o corpo da div*/
+    transform: translate(-50%, -50%); /*Concerta a centralização da div*/
+    z-index: 10;
+    background-color: var(--default-blue);
+    max-width: 80%;
+    padding: 1.2rem;
+    border-radius: .25rem;
+}
+
+#modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+}
+
+#fade.hide, #modal.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#modal.hide {
+    top: 0;
+}
+
+.litros-modal, .Km-modal, .Preco-Km-modal, .Valor-Bruto-modal {
+    width: 100px;
+}
+
+#fade-fecha-mes, #modal-fecha-mes {
+    transition: .5s;
+    opacity: 1;
+    pointer-events: all; /* Os eventos vao funcionar apenas quando a opacidade é 1*/
+
+}
+
+#fade-fecha-mes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 5; /* Coloca o fade em uma camada a cima da página*/
+}
+
+#modal-fecha-mes {
+    position: fixed;
+    /* Manipulando elemento com position: fixed */
+    left: 50%;
+    top: 50%; /* Coloca o elemento no meio da tela, mas não leva em consideração o corpo da div*/
+    transform: translate(-50%, -50%); /*Concerta a centralização da div*/
+    z-index: 10;
+    background-color: var(--default-blue);
+    max-width: 80%;
+    padding: 1.2rem;
+    border-radius: .25rem;
+    max-height: 90%;
+}
+
+#modal-header-fecha-mes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+}
+
+#fade-fecha-mes.hide, #modal-fecha-mes.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#modal-fecha-mes.hide {
+    top: 0;
+}
+
+/* Footer */
+
+    footer {
+        margin: 30px 0;
+        font-size: 0.75rem;
+    }
+
+    footer #footer-content {
+        width: 80%;
+        display: flex;
+        margin: auto;
+    }
+
+    footer #footer-content #footer-menu {
+        list-style: none;
+        width: 100%;
+    }
+
+    footer #footer-content #footer-menu .footer-menu-item {
+        margin: 20px 0;
+    }
+
+    footer #rights {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+    }
+
+    footer #rights #country {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+        margin-right: 40px;
+        align-items: center;
+    }
+
+    footer #footer-content #country img {
+        height: 20px;
+        width: auto;
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    footer #rights #Copy {
+        width: 165px;
+    }
+
+/* Sobre */
+    main .showcase-container-sobre {
+        padding: 0;
+        height: 80%;
+        width: 100%;
+        margin: auto;
+        border: 1px solid red;
+    }
+
+    main .showcase-container-sobre .sobre {
+        background-color: #2f3b67d4;
+        backdrop-filter: blur(5px);
+        width: 80%;
+        height: 100%;
+        margin-bottom: 100px;
+    }
+
+    /* main #showcase-container-sobre .container-sobre .sobre {
+        background-color: var(--default-blue);
+    } */
+
+@media screen and (max-width:600px) {
+    header {
+        display: flex;
+        justify-content: center;
+        top: 0;
+        position: fixed;
+        width: 100%;
+        background-color: rgba(25, 36, 77, 0.6);
+        height: 50px;
+    }
+    
+    #navbar-conteiner {
+        display: flex;
+        width: 90%;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    #navbar-conteiner img {
+        width: 150px;
+    }
+    
+    #navbar-conteiner nav {
+        list-style: none;
+        display: flex;
+        padding: 0;
+        font-weight: bold;
+    }
+
+    /* Showcase */
+    main #showcase-container-principal #h1-principal{
+        padding-bottom: 30px;
+        font-size: 2.2rem;
+    }
+
+    main #showcase-container-principal #showcase-button-pricipal {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    main #showcase-container-principal #showcase-button-pricipal button{
+        padding: 15px 30px;
+        background-color: var(--default-yelow);
+        border: none;
+        border-radius: 20px;
+        color: #121317;
+        font-weight: bold;
+        width: 140px;
+        font-size: 14px;
+        transition: all 300ms ease;
+    }
+
+    /* footer */
+    footer #footer-content {
+        width: 90%;
+        display: flex;
+        margin: auto;
+    }
+    
+    footer #rights #country {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+        margin-right: 0;
+        align-items: center;
+    }
+    
+    footer #rights #Copy {
+        width: 165px;
+        text-align: end;
+    }
+    
+}
