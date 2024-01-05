@@ -81,7 +81,6 @@ header {
     background-color: #dedede;
     min-width: 95vw;
     min-height: 80vh;
-    padding: 10px 15px;
     border-radius: 2px;
     margin: auto 20px;
 }
@@ -100,7 +99,7 @@ select, input, #button-submit{
     margin-bottom: 10px;
     border-radius: 5px;
     border: none;
-    width: 285px;
+    width: 250px;
 }
 
 

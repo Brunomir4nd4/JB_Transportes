@@ -128,9 +128,9 @@
                 </table>
 
                 <div id="modal-buttons">
-                    <button id="chage-button-modal">Salvar alteração</button> 
-                    <button id="dell-button-modal">Deletar</button> 
-                    <button id="close-modal">Fechar</button> 
+                    <button id="chage-button-modal" onclick="changeProduct(JSON.parse(localStorage.getItem('changeProduct')))">Salvar alteração</button> 
+                    <button id="dell-button-modal" onclick="dellProduct(JSON.parse(localStorage.getItem('changeProduct')))">Deletar</button> 
+                    <button id="close-modal" onclick="toggleModal()">Fechar</button> 
                 </div>
             </div>
         </div>
