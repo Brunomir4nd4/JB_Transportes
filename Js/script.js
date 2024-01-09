@@ -11,17 +11,19 @@ let list_Product = [];
 // localStorage.clear()
 
 // é responsável pro imprimir os produtos, caso tenha
-if (localStorage.getItem("C1_armazem")) {
-    list_Product = JSON.parse(localStorage.getItem("C1_armazem"));
-
-    for (let i=0; i < list_Product.length; i++) {
-        View_Products(list_Product[i]);
-
+function Controle() {
+    if (localStorage.getItem("C1_armazem")) {
+        list_Product = JSON.parse(localStorage.getItem("C1_armazem"));
+    
+        for (let i=0; i < list_Product.length; i++) {
+            View_Products(list_Product[i]);
+    
+        }
+    
     }
-
 }
 
-function createTableCell(content) {
+function createTD(content) {
     let td = document.createElement("td");
     let textNode = document.createTextNode(content);
     td.appendChild(textNode);
@@ -35,10 +37,10 @@ function View_Products(objectProduct) {
 
     let tr = document.createElement("tr");
     
-    tr.appendChild(createTableCell(objectProduct.nome));
-    tr.appendChild(createTableCell(objectProduct.valor));
-    tr.appendChild(createTableCell(objectProduct.qtd));
-    tr.appendChild(createTableCell(objectProduct.parcelas));
+    tr.appendChild(createTD(objectProduct.nome));
+    tr.appendChild(createTD(objectProduct.valor));
+    tr.appendChild(createTD(objectProduct.qtd));
+    tr.appendChild(createTD(objectProduct.parcelas));
     tr.classList.add("Product_item")
     
     let conteudo = document.createTextNode("Alterar")
@@ -67,9 +69,8 @@ function View_Products(objectProduct) {
     td1.appendChild(button);
     
     tr.appendChild(td1);
-    let tbody = document.getElementById("tbody");
+    let tbody = document.getElementById("tbody-controle");
     tbody.appendChild(tr);
-    
 }
 
 function create_Product() {
@@ -109,9 +110,8 @@ function ParcelasRestantes(Product) {
     var diaAtual = dataAtual.getDate();
 
     // Verificar se já é ou passou do dia 25
-    if (30 >= 25) {
+    if (diaAtual >= 25 && JSON.parse(localStorage.getItem("verificador-desconta-parcela")) == false) {
         Product.parcelas_restantes -= 1;
-        console.log("oi")
         let list_Product = JSON.parse(localStorage.getItem("C1_armazem"));
         let size = list_Product.length;
         for (let i=0; i < size; i++) {
@@ -124,13 +124,19 @@ function ParcelasRestantes(Product) {
                 break;
             }
         }
-        console.log(list_Product.length)
+        
         if (list_Product.length == 0) {
             localStorage.removeItem("C1_armazem");
         } else {
             localStorage.setItem("C1_armazem", JSON.stringify(list_Product));
         }
-        window.location.reload();
+        // window.location.reload();
+
+        localStorage.setItem("verificador-desconta-parcela", JSON.stringify(true));
+    } 
+
+    if (diaAtual < 25) {
+        localStorage.setItem("verificador-desconta-parcela", JSON.stringify(false));
     }
 }
 

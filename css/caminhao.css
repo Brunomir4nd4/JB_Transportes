@@ -72,7 +72,6 @@ header {
 
 #main-deposito {
     padding-top: 80px;
-    /* border: 1px solid yellow; */
     margin: auto;
 }
 
@@ -85,6 +84,7 @@ header {
     margin: auto 20px;
 }
 
+
 #showcase-container-deposito h1 {
     display: flex;
     justify-content: center;
@@ -93,12 +93,15 @@ header {
     font-size: 1.8rem;
 }
 
-select, input, #button-submit{
-    margin: 0 7px;
+#tabela{
+    margin: auto;
+}
+
+#nome, #valor, #qtd, #parcelas, #button-submit {
+    margin: auto 5px;
     padding: 7px;
     margin-bottom: 10px;
     border-radius: 5px;
-    border: none;
     width: 250px;
 }
 
@@ -107,9 +110,7 @@ select, input, #button-submit{
     color: #121317;  
     font-weight: bold;  
     font-size: 1rem;
-    display: flex;
-    justify-content: center;
-    width: 150px;
+    max-width: 100px;
 }
 
 .changeButton button {
@@ -153,7 +154,7 @@ select, input, #button-submit{
     margin-top: 15px;
 }
 
-#close-modal, #chage-button-modal, #dell-button-modal{
+#close-modal, #chage-button-modal, #dell-button-modal, #view-month-end-closing{
     padding: .6rem 1.2rem;
     background-color: #888;
     color: black;
@@ -170,6 +171,10 @@ select, input, #button-submit{
 
 #dell-button-modal {
     background-color: brown;
+}
+
+#view-month-end-closing{
+    background-color: forestgreen;
 }
 
 /* hISTÓRICO DOS FECHAMENTOS DOS MESES */   
@@ -235,15 +240,15 @@ select, input, #button-submit{
     top: 0;
 }
 
+.litros-modal, .Km-modal, .Preco-Km-modal, .Valor-Bruto-modal {
+    width: 100px;
+}
+
 #fade-fecha-mes, #modal-fecha-mes {
     transition: .5s;
     opacity: 1;
     pointer-events: all; /* Os eventos vao funcionar apenas quando a opacidade é 1*/
-    
-}
 
-.litros-modal, .Km-modal, .Preco-Km-modal, .Valor-Bruto-modal {
-    width: 100px;
 }
 
 #fade-fecha-mes {
@@ -286,6 +291,27 @@ select, input, #button-submit{
 
 #modal-fecha-mes.hide {
     top: 0;
+}
+
+#litros-modal-DJE9J97, #Km-modal-DJE9J97, #Preco-Km-modal-DJE9J97, #Valor-Bruto-modal-DJE9J97 {
+    width: 100px;
+}
+
+#litros-modal-DHU7993, #Km-modal-DHU7993, #Preco-Km-modal-DHU7993, #Valor-Bruto-modal-DHU7993 {
+    width: 100px;
+}
+
+select, input, #button-submit{
+    margin: 0 7px;
+    padding: 7px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 250px;
+}
+
+.p-modal-fecha-mes {
+    justify-content: left;
 }
 
 @media screen and (max-width:900px) {

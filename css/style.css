@@ -70,7 +70,7 @@ body {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background: url(img/IMG_20231213_183827.jpg) center center/cover;
+        background: url(../img/IMG_20231213_183827.jpg) center center/cover;
         background-color: rgba(0, 0, 0, 0.4);
         background-blend-mode: color;
     }
