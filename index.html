@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JB Transportes - Adiministrativo</title>
     <link rel="shortcut icon" href="img/favicon.jpeg" type="image/x-icon">
-    <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');</style>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -36,11 +35,11 @@
         <div id="fade-fecha-mes" class="hide"></div>
         <div id="modal-fecha-mes" class="hide">
             <div id="modal-header-fecha-mes">
-                <h2 id="h2-modal-header">Alteração do Produto</h2>
+                <h2 id="h2-modal-header">Fechamento do mês</h2>
             </div>
             <div id="modal-body-fecha-mes">
 
-                <p>DJE9J97</p>
+                <p class="p-modal-fecha-mes">DJE9J97</p>
                 <table id="tabela">
                     <thead>
                         <tr>
@@ -51,41 +50,40 @@
                         </tr>
                     </thead>
     
-                    <tbody id="tbody">
+                    <tbody id="tbody-fecha-mes">
                         <tr>
                             <td>
-                                <input type="number" class="litros-modal" placeholder="Litros">
+                                <input type="number" id="litros-modal-DJE9J97" placeholder="Litros">
                             </td>
                             <td>
-                                <input type="number" class="Km-modal" placeholder="Km">
+                                <input type="number" id="Km-modal-DJE9J97" placeholder="Km">
                             </td>
                             <td>
-                                <input type="number" class="Preco-Km-modal" placeholder="Preço P/ Km">
+                                <input type="number" id="Preco-Km-modal-DJE9J97" placeholder="Preço P/ Km">
                             </td>
                             <td>
-                                <input type="number" class="Valor-Bruto-modal" placeholder="Valor Bruto">
+                                <input type="number" id="Valor-Bruto-modal-DJE9J97" placeholder="Valor Bruto">
                             </td>
                         </tr>
-    
                     </tbody>
                 </table>
 
-                <p>DHU7993</p>
+                <p class="p-modal-fecha-mes">DHU7993</p>
                 <table id="tabela">
     
                     <tbody id="tbody">
                         <tr>
                             <td>
-                                <input type="number" class="litros-modal" placeholder="Litros">
+                                <input type="number" id="litros-modal-DHU7993" placeholder="Litros">
                             </td>
                             <td>
-                                <input type="number" class="Km-modal" placeholder="Km">
+                                <input type="number" id="Km-modal-DHU7993" placeholder="Km">
                             </td>
                             <td>
-                                <input type="number" class="Preco-Km-modal" placeholder="Preço P/ Km">
+                                <input type="number" id="Preco-Km-modal-DHU7993" placeholder="Preço P/ Km">
                             </td>
                             <td>
-                                <input type="number" class="Valor-Bruto-modal" placeholder="Valor Bruto">
+                                <input type="number" id="Valor-Bruto-modal-DHU7993" placeholder="Valor Bruto">
                             </td>
                         </tr>
     
@@ -93,8 +91,10 @@
                 </table>
 
                 <div id="modal-buttons">
-                    <button id="chage-button-modal">Salvar alteração</button> 
-                    <button id="close-modal">Fechar</button> 
+                    <!-- <button id="chage-button-modal" onclick="push-close-end-closing(JSON.parse(localStorage.setItem('month-end-closing')))">Salvar alteração</button>  -->
+                    <button id="chage-button-modal" onclick="SalvarAlteracaoFechaMes()">Salvar alteração</button> 
+                    <button id="close-modal" onclick="toggleModalFechaMes()">Fechar</button> 
+                    <a href="historicoFechamentoMes.html"><button id="view-month-end-closing">Ver histórico</button></a>
                 </div>
             </div>
         </div>

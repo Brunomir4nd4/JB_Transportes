@@ -130,7 +130,8 @@ body {
     margin-top: 15px;
 }
 
-#close-modal, #chage-button-modal, #dell-button-modal{
+
+#close-modal, #chage-button-modal, #dell-button-modal, #view-month-end-closing{
     padding: .6rem 1.2rem;
     background-color: #888;
     color: black;
@@ -147,6 +148,10 @@ body {
 
 #dell-button-modal {
     background-color: brown;
+}
+
+#view-month-end-closing{
+    background-color: forestgreen;
 }
 
 #fade, #modal {
@@ -250,6 +255,28 @@ body {
     top: 0;
 }
 
+#litros-modal-DJE9J97, #Km-modal-DJE9J97, #Preco-Km-modal-DJE9J97, #Valor-Bruto-modal-DJE9J97 {
+    width: 100px;
+}
+
+#litros-modal-DHU7993, #Km-modal-DHU7993, #Preco-Km-modal-DHU7993, #Valor-Bruto-modal-DHU7993 {
+    width: 100px;
+}
+
+select, input, #button-submit{
+    margin: 0 7px;
+    padding: 7px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 250px;
+}
+
+.p-modal-fecha-mes {
+    justify-content: left;
+}
+
+
 /* Footer */
 
     footer {
@@ -296,27 +323,6 @@ body {
     footer #rights #Copy {
         width: 165px;
     }
-
-/* Sobre */
-    main .showcase-container-sobre {
-        padding: 0;
-        height: 80%;
-        width: 100%;
-        margin: auto;
-        border: 1px solid red;
-    }
-
-    main .showcase-container-sobre .sobre {
-        background-color: #2f3b67d4;
-        backdrop-filter: blur(5px);
-        width: 80%;
-        height: 100%;
-        margin-bottom: 100px;
-    }
-
-    /* main #showcase-container-sobre .container-sobre .sobre {
-        background-color: var(--default-blue);
-    } */
 
 @media screen and (max-width:600px) {
     header {

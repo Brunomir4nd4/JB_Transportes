@@ -102,7 +102,6 @@ select, input, #button-submit{
     width: 250px;
 }
 
-
 #button-submit, .changeButton button{
     background-color: #FFCC57;
     color: #121317;  
@@ -173,6 +172,21 @@ select, input, #button-submit{
     background-color: brown;
 }
 
+/* hISTÓRICO DOS FECHAMENTOS DOS MESES */   
+
+#tabelas{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+#p-histórico-fecha-mes {
+    display: flex;
+    font-weight: bold;
+    justify-content: space-around;
+    margin-bottom: 13px;
+}
+
 #fade, #modal {
     transition: .5s;
     opacity: 1;
@@ -221,15 +235,15 @@ select, input, #button-submit{
     top: 0;
 }
 
-.litros-modal, .Km-modal, .Preco-Km-modal, .Valor-Bruto-modal {
-    width: 100px;
-}
-
 #fade-fecha-mes, #modal-fecha-mes {
     transition: .5s;
     opacity: 1;
     pointer-events: all; /* Os eventos vao funcionar apenas quando a opacidade é 1*/
+    
+}
 
+.litros-modal, .Km-modal, .Preco-Km-modal, .Valor-Bruto-modal {
+    width: 100px;
 }
 
 #fade-fecha-mes {

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JB Transportes - Depósito C1</title>
     <link rel="shortcut icon" href="img/favicon.jpeg" type="image/x-icon">
-    <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');</style>
     <link rel="stylesheet" href="caminhao.css">
 </head>
 <body id="body-deposito">
@@ -80,6 +79,7 @@
         <div id="modal" class="hide">
             <div id="modal-header">
                 <h2 id="h2-modal-header">Alteração do Produto</h2>
+                <p id="p-modal-header"></p>
             </div>
             <div id="modal-body">
 
@@ -199,7 +199,7 @@
 
                 <div id="modal-buttons">
                     <button id="chage-button-modal">Salvar alteração</button> 
-                    <button id="close-modal">Fechar</button> 
+                    <button id="close-modal" onclick="toggleModalFechaMes()">Fechar</button> 
                 </div>
             </div>
         </div>
