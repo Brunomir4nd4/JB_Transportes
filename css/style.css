@@ -142,16 +142,36 @@ body {
     transition: all 300ms ease;
 }
 
+#close-modal:hover {
+    background-color: #a4a4a4;
+    color: #001976;
+}
+
 #chage-button-modal {
     background-color: #FFCC57;
+}
+
+#chage-button-modal:hover {
+    background-color: #f6d27e;
+    color: #001976;
 }
 
 #dell-button-modal {
     background-color: brown;
 }
 
+#dell-button-modal:hover {
+    background-color: rgb(157, 72, 72);
+    color: #001976;
+}
+
 #view-month-end-closing{
     background-color: forestgreen;
+}
+
+#view-month-end-closing:hover {
+    background-color: rgb(69, 142, 69);
+    color: #001976;
 }
 
 #fade, #modal {

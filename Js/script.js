@@ -93,27 +93,30 @@ function create_Product() {
     Product.qtd = document.getElementById("qtd").value;
     Product.parcelas = document.getElementById("parcelas").value;
     Product.parcelas_restantes = document.getElementById("parcelas").value;
-    
-    // Verificar se a chave "C1_armazem" existe no localStorage
-    if (localStorage.getItem("C1_armazem")) {
-        // Se existir, obter a lista de produtos do localStorage
-        list_Product = JSON.parse(localStorage.getItem("C1_armazem"));
 
-        let i;
-        for (i=0; i < list_Product.length; i++);
-        let objectProduct = list_Product[i - 1];
-        let identificacao = objectProduct.id + 1;
-        Product.id = identificacao;
+    if (!(Product.nome == '' || Product.valor == '' || Product.qtd ==  '' || Product.parcelas == 0)) {
+        // Verificar se a chave "C1_armazem" existe no localStorage
+        if (localStorage.getItem("C1_armazem")) {
+            // Se existir, obter a lista de produtos do localStorage
+            list_Product = JSON.parse(localStorage.getItem("C1_armazem"));
+    
+            let i;
+            for (i=0; i < list_Product.length; i++);
+            let objectProduct = list_Product[i - 1];
+            let identificacao = objectProduct.id + 1;
+            Product.id = identificacao;
+        }
+        
+        // Adicionar o novo produto à lista
+        list_Product.push(Product);
+    
+        // Armazenar a lista atualizada no localStorage
+        localStorage.setItem("C1_armazem", JSON.stringify(list_Product));
+        
+        // Recarregar a página
+        window.location.reload();
     }
     
-    // Adicionar o novo produto à lista
-    list_Product.push(Product);
-
-    // Armazenar a lista atualizada no localStorage
-    localStorage.setItem("C1_armazem", JSON.stringify(list_Product));
-    
-    // Recarregar a página
-    window.location.reload();
 }
 
 function ParcelasRestantes(Product) {
@@ -185,25 +188,45 @@ function UpdateList (list_Product, changeProduct, action) {
 }
 
 function changeProduct(changeProduct) {
-    let nomeModal = document.getElementById("nome-modal");
-    let valorModal = document.getElementById("valor-modal");
-    let qtdModal = document.getElementById("qtd-modal");
-    let parcelasModal = document.getElementById("parcelas-modal");
+    let nomeModal = document.getElementById("nome-modal").value;
+    let valorModal = document.getElementById("valor-modal").value;
+    let qtdModal = document.getElementById("qtd-modal").value;
+    let parcelasModal = document.getElementById("parcelas-modal").value;
 
-    changeProduct.nome = nomeModal.value;
-    changeProduct.valor = valorModal.value;
-    changeProduct.qtd = qtdModal.value;
-    changeProduct.parcelas = parcelasModal.value;
+    if (!(nomeModal == '' || valorModal == '' || qtdModal == '' || parcelasModal == 0)) {
+        changeProduct.nome = nomeModal;
+        changeProduct.valor = valorModal;
+        changeProduct.qtd = qtdModal;
+        changeProduct.parcelas = parcelasModal;
+    
+        UpdateList (list_Product, changeProduct, 1);
+    }
 
-    UpdateList (list_Product, changeProduct, 1);
 }
 
 function dellProduct (dellProduct) {
-    UpdateList(list_Product, dellProduct, 2);
-
-    if (JSON.parse(localStorage.getItem("C1_armazem")).length == 0) {
-        localStorage.removeItem("C1_armazem");
-    }
+    swal({
+        title: "Tem certeza?",
+        text: "Se você deletar esse produto não poderá acessá-lo novamente!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            swal("Poof! Seu produto foi deletado!", {
+                icon: "success",
+            })
+            .then(() => {
+                UpdateList(list_Product, dellProduct, 2);
+                
+                if (JSON.parse(localStorage.getItem("C1_armazem")).length == 0) {
+                    localStorage.removeItem("C1_armazem");
+                }
+            });
+            
+        } 
+    });
 }
 
 let list_DJE9J97 = [];
@@ -219,42 +242,56 @@ function SalvarAlteracaoFechaMes() {
     let preco_km_DHU7993 = document.getElementById('Preco-Km-modal-DHU7993').value;
     let valor_bruto_DHU7993 = document.getElementById('Valor-Bruto-modal-DHU7993').value;
 
-    // Obter a data e hora atual
-    var dataAtual = new Date();
+    if (!(litros_DJE9J97 == '' || km_DJE9J97 == '' || preco_km_DJE9J97 == '' || valor_bruto_DJE9J97 == '' || 
+    litros_DHU7993 == '' || km_DHU7993 == '' || preco_km_DHU7993 == '' || valor_bruto_DHU7993 == '')) {
 
-    // Obter o dia do mês atual
-    var diaAtual = `${(dataAtual.getDate()).toString().padStart(2, '0')}/${(dataAtual.getMonth() + 1).toString().padStart(2, '0')}/${dataAtual.getFullYear() - 2000}`;
-    let objetoFechaMesDJE9J97 = {
-        litros: litros_DJE9J97,
-        km: km_DJE9J97,
-        preco_km: preco_km_DJE9J97,
-        valor_bruto: valor_bruto_DJE9J97,
-        data: diaAtual
-    };
+        // Obter a data e hora atual
+        var dataAtual = new Date();
+    
+        // Obter o dia do mês atual
+        var diaAtual = `${(dataAtual.getDate()).toString().padStart(2, '0')}/${(dataAtual.getMonth() + 1).toString().padStart(2, '0')}/${dataAtual.getFullYear() - 2000}`;
+        let objetoFechaMesDJE9J97 = {
+            litros: litros_DJE9J97,
+            km: km_DJE9J97,
+            preco_km: preco_km_DJE9J97,
+            valor_bruto: valor_bruto_DJE9J97,
+            data: diaAtual
+        };
+    
+        let objetoFechaMesDHU7993 = {
+            litros: litros_DHU7993,
+            km: km_DHU7993,
+            preco_km: preco_km_DHU7993,
+            valor_bruto: valor_bruto_DHU7993,
+            data: diaAtual
+        };
+    
+        if (localStorage.getItem("fechamento-mes-DJE9J97")) {
+            list_DJE9J97 = JSON.parse(localStorage.getItem("fechamento-mes-DJE9J97"));
+            list_DHU7993 = JSON.parse(localStorage.getItem("fechamento-mes-DHU7993"));
+            list_DJE9J97.push(objetoFechaMesDJE9J97);
+            list_DHU7993.push(objetoFechaMesDHU7993);
+    
+        } else {
+            list_DHU7993[0] = objetoFechaMesDHU7993;
+            list_DJE9J97[0] = objetoFechaMesDJE9J97;
+        }
+    
+        localStorage.setItem("fechamento-mes-DJE9J97", JSON.stringify(list_DJE9J97));
+        localStorage.setItem("fechamento-mes-DHU7993", JSON.stringify(list_DHU7993));
+        document.getElementById('litros-modal-DJE9J97').value = '';
+        document.getElementById('Km-modal-DJE9J97').value = '';
+        document.getElementById('Preco-Km-modal-DJE9J97').value = '';
+        document.getElementById('Valor-Bruto-modal-DJE9J97').value = '';
 
-    let objetoFechaMesDHU7993 = {
-        litros: litros_DHU7993,
-        km: km_DHU7993,
-        preco_km: preco_km_DHU7993,
-        valor_bruto: valor_bruto_DHU7993,
-        data: diaAtual
-    };
-
-    if (localStorage.getItem("fechamento-mes-DJE9J97")) {
-        list_DJE9J97 = JSON.parse(localStorage.getItem("fechamento-mes-DJE9J97"));
-        list_DHU7993 = JSON.parse(localStorage.getItem("fechamento-mes-DHU7993"));
-        list_DJE9J97.push(objetoFechaMesDJE9J97);
-        list_DHU7993.push(objetoFechaMesDHU7993);
-
-    } else {
-        list_DHU7993[0] = objetoFechaMesDHU7993;
-        list_DJE9J97[0] = objetoFechaMesDJE9J97;
+        document.getElementById('litros-modal-DHU7993').value = '';
+        document.getElementById('Km-modal-DHU7993').value = '';
+        document.getElementById('Preco-Km-modal-DHU7993').value = '';
+        document.getElementById('Valor-Bruto-modal-DHU7993').value = '';
+        swal("Secesso!", "Fechamento de mês salvo!", "success");
     }
 
-    localStorage.setItem("fechamento-mes-DJE9J97", JSON.stringify(list_DJE9J97));
-    localStorage.setItem("fechamento-mes-DHU7993", JSON.stringify(list_DHU7993));
 }
-
 
 // Página do histórico do fechamento do mes
 
