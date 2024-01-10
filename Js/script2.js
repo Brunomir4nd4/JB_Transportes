@@ -220,7 +220,6 @@ function dellProduct (dellProduct) {
                     localStorage.removeItem("C1_armazem");
                 }
             });
-            
         } 
     });
 }

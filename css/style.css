@@ -348,7 +348,7 @@ select, input, #button-submit{
         width: 165px;
     }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width:900px) {
     header {
         display: flex;
         justify-content: center;
