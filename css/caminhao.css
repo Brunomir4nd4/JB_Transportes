@@ -82,8 +82,14 @@ header {
     min-height: 80vh;
     border-radius: 2px;
     margin: auto 20px;
+    padding: 5px;
 }
 
+#p-totala-mes {
+    text-align: end;
+    margin-right: 30px;
+    font-weight: 500;
+}
 
 #showcase-container-deposito h1 {
     display: flex;
@@ -102,7 +108,13 @@ header {
     padding: 7px;
     margin-bottom: 10px;
     border-radius: 5px;
-    width: 250px;
+    width: 240px;
+}
+
+#tbody-controle p {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
 }
 
 #button-submit, .changeButton button{
@@ -183,6 +195,12 @@ header {
     display: flex;
     justify-content: space-around;
     flex-direction: row;
+}
+
+#tbody-historico-fecha-mes-DJE9J97 td, #tbody-historico-fecha-mes-DHU7993 td{
+    margin: auto;
+    border-radius: 2px;
+    width: 90px;
 }
 
 #p-histórico-fecha-mes {
@@ -314,7 +332,7 @@ select, input, #button-submit{
     justify-content: left;
 }
 
-@media screen and (max-width:900px) {
+@media screen and (max-width:800px) {
     header {
         display: flex;
         justify-content: center;
@@ -322,7 +340,8 @@ select, input, #button-submit{
         position: fixed;
         width: 100%;
         background-color: rgba(25, 36, 77, 0.6);
-        height: 50px;
+        height: 35px;
+        padding: 3px 0;
     }
     
     #navbar-conteiner {
@@ -364,22 +383,59 @@ select, input, #button-submit{
         width: 70px;
     }
     
+    #nome, #valor, #qtd, #parcelas, #button-submit {
+        margin: auto;
+        margin-right: 10px;
+        margin-top: 5px;
+        padding: 7px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+    
     #button-submit {
         width: 100px;
         height: 35px;
     }
 
+    #main-deposito {
+        padding-top: 80px;
+        margin: auto;
+        padding-bottom: 20px;
+    }
+
     #showcase-container-deposito {
-        min-width: 0;
-        min-height: 90vh;
-        margin: auto 20px;
+        color: rgb(25, 36, 77);
+        background-color: #dedede;
+        max-width: 90vw;
+        min-height: 80vh;
+        border-radius: 2px;
+        margin: auto;
+        padding: 5px;
     }
 
     #tabela, thead th {
         margin: auto;
     }
 
+    #tbody-controle p {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
     #button-submit {
         margin-left: 25px;
+    }
+    
+    #tbody-historico-fecha-mes-DJE9J97 td, #tbody-historico-fecha-mes-DHU7993 td{
+        margin: 0;
+        padding: 5px;
+        border-radius: 2px;
+        max-width: 65px;
+    }
+
+    #tbody-historico-fecha-mes-DJE9J97 .pd-preco-km, #tbody-historico-fecha-mes-DHU7993 .pd-preco-km{
+        max-width: 20px;
+        text-align: center;
     }
 } 

@@ -243,7 +243,11 @@ body {
     align-items: center;
     border-bottom: 1px solid #ccc;
     margin-bottom: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: .4rem;
+}
+
+.p-modal-fecha-mes{
+    margin-bottom: 9px;
 }
 
 #fade-fecha-mes.hide, #modal-fecha-mes.hide {
@@ -324,7 +328,7 @@ select, input, #button-submit{
         width: 165px;
     }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:800px) {
     header {
         display: flex;
         justify-content: center;
@@ -371,14 +375,14 @@ select, input, #button-submit{
     }
 
     main #showcase-container-principal #showcase-button-pricipal button{
-        padding: 15px 30px;
+        padding: 15px 20px;
         background-color: var(--default-yelow);
         border: none;
         border-radius: 20px;
         color: #121317;
         font-weight: bold;
-        width: 140px;
-        font-size: 14px;
+        width: 110px;
+        font-size: 1rem;
         transition: all 300ms ease;
     }
 

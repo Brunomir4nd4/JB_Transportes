@@ -12,20 +12,30 @@ let list_Product = [];
 
 // é responsável pro imprimir os produtos, caso tenha
 function Controle() {
+    let somaTotalMes = 0;
     if (localStorage.getItem("C2_armazem")) {
         list_Product = JSON.parse(localStorage.getItem("C2_armazem"));
     
         for (let i=0; i < list_Product.length; i++) {
-            View_Products(list_Product[i]);
+            somaTotalMes += View_Products(list_Product[i]);
     
         }
-    
     }
+    let pValorTotal = document.getElementById("p-totala-mes");
+    pValorTotal.innerText = `Valor a pagar este mês: $${somaTotalMes.toFixed(2)}`;
 }
 
 function createTD(content) {
     let td = document.createElement("td");
     let textNode = document.createTextNode(content);
+    td.appendChild(textNode);
+    return td;
+}
+
+function ValorMensal(parcelas, valor, qtd) {
+    let td = document.createElement("td");
+    let valorMensal = (valor*qtd)/parcelas;
+    let textNode = document.createTextNode(valorMensal.toFixed(2));
     td.appendChild(textNode);
     return td;
 }
@@ -41,6 +51,7 @@ function View_Products(objectProduct) {
     tr.appendChild(createTD(objectProduct.valor));
     tr.appendChild(createTD(objectProduct.qtd));
     tr.appendChild(createTD(objectProduct.parcelas));
+    tr.appendChild(ValorMensal(objectProduct.parcelas, objectProduct.valor, objectProduct.qtd));
     tr.classList.add("Product_item")
     
     let conteudo = document.createTextNode("Alterar")
@@ -71,6 +82,7 @@ function View_Products(objectProduct) {
     tr.appendChild(td1);
     let tbody = document.getElementById("tbody-controle");
     tbody.appendChild(tr);
+    return (objectProduct.valor * objectProduct.qtd)/objectProduct.parcelas;
 }
 
 function create_Product() {

@@ -22,7 +22,7 @@
 
     
     <main id="main-deposito">
-
+        <p id="p-totala-mes"></p>
         <div id="showcase-container-deposito">
             <h1>Controle do Caminhão DJE9J97</h1>
             <table id="tabela">
@@ -32,6 +32,7 @@
                         <th>Valor</th>
                         <th>Quantidade</th>
                         <th>Parcelas</th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -65,6 +66,9 @@
                             </select>
                         </td>
                         <td>
+                            <p>Valor Mensal</p>
+                        </td>
+                        <td id="td-button-submit">
                             <button id="button-submit" onclick="create_Product()">Adicionar</button>
                         </td>
                     </tr>
@@ -197,7 +201,7 @@
                 </table>
 
                 <div id="modal-buttons">
-                    <button id="chage-button-modal" onclick="SalvarAlteracaoFechaMes()">Salvar alteração</button> 
+                    <button id="chage-button-modal" onclick="SalvarAlteracaoFechaMes()">Salvar</button> 
                     <button id="close-modal" onclick="toggleModalFechaMes()">Fechar</button> 
                     <a href="historicoFechamentoMes.html"><button id="view-month-end-closing">Ver histórico</button></a>
                 </div>
