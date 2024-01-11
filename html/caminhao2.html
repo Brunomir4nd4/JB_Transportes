@@ -7,19 +7,19 @@
     <link rel="shortcut icon" href="../img/favicon.jpeg" type="image/x-icon">
     <link rel="stylesheet" href="../css/caminhao.css">
 </head>
-<body id="body-deposito" onload="Controle()">
+<body id="body-deposito" onload="PaginaCaminhaoCarregada()">
     <header>
         <div id="navbar-conteiner">
             <a href="../index.html"><img src="../img/Logo.jpeg" alt="Logo"></a>
             <nav>
                 <a class="navbar-item" href="caminhao1.html">DJE9J97</a>
                 <a class="navbar-item" href="../index.html">Home</a>
-                <button id="button-navbar" class="navbar-item" onclick="toggleModalFechaMes()">Fechar mês</button>
+                <button id="button-navbar" class="navbar-item" onclick="AbreFechaModalFechaMes()">Fechar mês</button>
             </nav>
         </div>
     </header>
     <main id="main-deposito">
-        <p id="p-totala-mes"></p>
+        <p id="p-total-mes"></p>
         <div id="showcase-container-deposito">
             <h1>Controle do Caminhão DHU7993</h1>
             <table id="tabela">
@@ -64,7 +64,7 @@
                         </td>
                         <td><p>Valor Mansal</p></td>
                         <td>
-                            <button id="button-submit" onclick="create_Product()">Adicionar</button>
+                            <button id="button-submit" onclick="CriarNovoProduto()">Adicionar</button>
                         </td>
                     </tr>
 
@@ -129,9 +129,9 @@
                 </table>
 
                 <div id="modal-buttons">
-                    <button id="chage-button-modal" onclick="changeProduct(JSON.parse(localStorage.getItem('changeProduct')))">Salvar alteração</button> 
-                    <button id="dell-button-modal" onclick="dellProduct(JSON.parse(localStorage.getItem('changeProduct')))">Deletar</button> 
-                    <button id="close-modal" onclick="toggleModal()">Fechar</button> 
+                    <button id="chage-button-modal" onclick="AlterarProduto(JSON.parse(localStorage.getItem('changeProduct')))">Salvar alteração</button> 
+                    <button id="dell-button-modal" onclick="ExcluirProduto(JSON.parse(localStorage.getItem('changeProduct')))">Deletar</button> 
+                    <button id="close-modal" onclick="AbreFechaModal()">Fechar</button> 
                 </div>
             </div>
         </div>
@@ -199,8 +199,8 @@
                 </table>
 
                 <div id="modal-buttons">
-                    <button id="chage-button-modal" onclick="SalvarAlteracaoFechaMes()">Salvar</button> 
-                    <button id="close-modal" onclick="toggleModalFechaMes()">Fechar</button> 
+                    <button id="chage-button-modal" onclick="CriarNovaFechamentoMes()">Salvar</button> 
+                    <button id="close-modal" onclick="AbreFechaModalFechaMes()">Fechar</button> 
                     <a href="historicoFechamentoMes.html"><button id="view-month-end-closing">Ver histórico</button></a>
                 </div>
             </div>

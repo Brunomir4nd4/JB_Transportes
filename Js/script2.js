@@ -1,4 +1,4 @@
-let Product = {
+let PRODUTO = {
     id: 0,
     nome: "",
     valor: 0,
@@ -7,224 +7,47 @@ let Product = {
     parcelas_restantes: 0
 };
 
-let list_Product = [];
+let LISTA_PRODUTOS = [];
+const CHAVE_ARMAZEM_DHU7993 = 'C2_armazem';
+const TD = "td";
+const TR = "tr";
 // localStorage.clear()
 
-// é responsável pro imprimir os produtos, caso tenha
-function Controle() {
-    let somaTotalMes = 0;
-    if (localStorage.getItem("C2_armazem")) {
-        list_Product = JSON.parse(localStorage.getItem("C2_armazem"));
+function CriarNovoProduto() {
+    PRODUTO.nome = document.getElementById("nome").value;
+    PRODUTO.valor = document.getElementById("valor").value;
+    PRODUTO.qtd = document.getElementById("qtd").value;
+    PRODUTO.parcelas = document.getElementById("parcelas").value;
+    PRODUTO.parcelas_restantes = document.getElementById("parcelas").value;
     
-        for (let i=0; i < list_Product.length; i++) {
-            somaTotalMes += View_Products(list_Product[i]);
-    
-        }
-    }
-    let pValorTotal = document.getElementById("p-totala-mes");
-    pValorTotal.innerText = `Valor a pagar este mês: $${somaTotalMes.toFixed(2)}`;
-}
-
-function createTD(content) {
-    let td = document.createElement("td");
-    let textNode = document.createTextNode(content);
-    td.appendChild(textNode);
-    return td;
-}
-
-function ValorMensal(parcelas, valor, qtd) {
-    let td = document.createElement("td");
-    let valorMensal = (valor*qtd)/parcelas;
-    let textNode = document.createTextNode(valorMensal.toFixed(2));
-    td.appendChild(textNode);
-    return td;
-}
-
-function View_Products(objectProduct) {
-    
-    // Responsável pro atualizar as parcelas restantes e/ou deleter o produto
-    ParcelasRestantes(objectProduct);
-
-    let tr = document.createElement("tr");
-    
-    tr.appendChild(createTD(objectProduct.nome));
-    tr.appendChild(createTD(objectProduct.valor));
-    tr.appendChild(createTD(objectProduct.qtd));
-    tr.appendChild(createTD(objectProduct.parcelas));
-    tr.appendChild(ValorMensal(objectProduct.parcelas, objectProduct.valor, objectProduct.qtd));
-    tr.classList.add("Product_item")
-    
-    let conteudo = document.createTextNode("Alterar")
-    let button = document.createElement("button");
-    // Abrindo modal
-    button.addEventListener("click", () => {
-        toggleModal()
-        localStorage.setItem("changeProduct", JSON.stringify(objectProduct));
-        let nomeModal = document.getElementById("nome-modal");
-        let valorModal = document.getElementById("valor-modal");
-        let qtdModal = document.getElementById("qtd-modal");
-        let parcelasModal = document.getElementById("parcelas-modal");
-
-        nomeModal.value = objectProduct.nome;
-        valorModal.value = objectProduct.valor;
-        qtdModal.value = objectProduct.qtd;
-        parcelasModal.value = objectProduct.parcelas;
-
-        let p = document.getElementById('p-modal-header');
-        p.innerText =`Parcelas Restantes: ${objectProduct.parcelas_restantes}`;
-    })
-    button.appendChild(conteudo)
-
-    let td1 = document.createElement("td");
-    td1.classList.add("changeButton");
-    td1.appendChild(button);
-    
-    tr.appendChild(td1);
-    let tbody = document.getElementById("tbody-controle");
-    tbody.appendChild(tr);
-    return (objectProduct.valor * objectProduct.qtd)/objectProduct.parcelas;
-}
-
-function create_Product() {
-    Product.nome = document.getElementById("nome").value;
-    Product.valor = document.getElementById("valor").value;
-    Product.qtd = document.getElementById("qtd").value;
-    Product.parcelas = document.getElementById("parcelas").value;
-    Product.parcelas_restantes = document.getElementById("parcelas").value;
-    
-    if (!(Product.nome == '' || Product.valor == '' || Product.qtd ==  '' || Product.parcelas == 0)) {
-        // Verificar se a chave "C1_armazem" existe no localStorage
-        if (localStorage.getItem("C1_armazem")) {
+    if (!(PRODUTO.nome == '' || PRODUTO.valor == '' || PRODUTO.qtd ==  '' || PRODUTO.parcelas == 0)) {
+        // Verificar se a chave CHAVE_ARMAZEM_DHU7993 existe no localStorage
+        if (localStorage.getItem(CHAVE_ARMAZEM_DHU7993)) {
             // Se existir, obter a lista de produtos do localStorage
-            list_Product = JSON.parse(localStorage.getItem("C1_armazem"));
+            LISTA_PRODUTOS = JSON.parse(localStorage.getItem(CHAVE_ARMAZEM_DHU7993));
     
             let i;
-            for (i=0; i < list_Product.length; i++);
-            let objectProduct = list_Product[i - 1];
+            for (i=0; i < LISTA_PRODUTOS.length; i++);
+            let objectProduct = LISTA_PRODUTOS[i - 1];
             let identificacao = objectProduct.id + 1;
-            Product.id = identificacao;
+            PRODUTO.id = identificacao;
         }
         
         // Adicionar o novo produto à lista
-        list_Product.push(Product);
+        LISTA_PRODUTOS.push(PRODUTO);
     
         // Armazenar a lista atualizada no localStorage
-        localStorage.setItem("C1_armazem", JSON.stringify(list_Product));
+        localStorage.setItem(CHAVE_ARMAZEM_DHU7993, JSON.stringify(LISTA_PRODUTOS));
         
         // Recarregar a página
         window.location.reload();
+
     }
 }
 
-function ParcelasRestantes(Product) {
-    // Obter a data e hora atual
-    var dataAtual = new Date();
-
-    // Obter o dia do mês atual
-    var diaAtual = dataAtual.getDate();
-
-    // Verificar se já é ou passou do dia 25
-    if (diaAtual >= 25 && JSON.parse(localStorage.getItem("verificador-desconta-parcela")) == false) {
-        Product.parcelas_restantes -= 1;
-        let list_Product = JSON.parse(localStorage.getItem("C2_armazem"));
-        let size = list_Product.length;
-        for (let i=0; i < size; i++) {
-            if (list_Product[i].id === Product.id) {
-                list_Product[i] = Product;
-                
-                if (list_Product[i].parcelas_restantes <= 0) {
-                    list_Product.splice(i, 1);
-                }
-                break;
-            }
-        }
-        
-        if (list_Product.length == 0) {
-            localStorage.removeItem("C2_armazem");
-        } else {
-            localStorage.setItem("C2_armazem", JSON.stringify(list_Product));
-        }
-        // window.location.reload();
-
-        localStorage.setItem("verificador-desconta-parcela", JSON.stringify(true));
-    } 
-
-    if (diaAtual < 25) {
-        localStorage.setItem("verificador-desconta-parcela", JSON.stringify(false));
-    }
-}
-
-function UpdateList (list_Product, changeProduct, action) {
-
-    for (let i=0; i < list_Product.length; i++) {
-        if (list_Product[i].id == changeProduct.id && action == 1) {
-            list_Product[i] = changeProduct;
-            break;
-        }
-
-        if (list_Product[i].id == changeProduct.id && action == 2) {
-            list_Product.splice(i, 1);
-
-            for (let j=0; j < list_Product.length; j++) {
-
-                if (list_Product[j].id - 1 < 0) {
-
-                    list_Product[j].id = 0;
-                } else {
-
-                    list_Product[j].id -= 1;
-                }
-            }
-            break;
-        }
-    }
-
-    localStorage.setItem("C2_armazem", JSON.stringify(list_Product));
-    toggleModal();
-    window.location.reload();
-}
-
-function changeProduct(changeProduct) {
-    let nomeModal = document.getElementById("nome-modal");
-    let valorModal = document.getElementById("valor-modal");
-    let qtdModal = document.getElementById("qtd-modal");
-    let parcelasModal = document.getElementById("parcelas-modal");
-
-    if (!(nomeModal == '' || valorModal == '' || qtdModal == '' || parcelasModal == 0)) {
-        changeProduct.nome = nomeModal;
-        changeProduct.valor = valorModal;
-        changeProduct.qtd = qtdModal;
-        changeProduct.parcelas = parcelasModal;
-    
-        UpdateList (list_Product, changeProduct, 1);
-    }
-}
-
-function dellProduct (dellProduct) {
-    swal({
-        title: "Tem certeza?",
-        text: "Se você deletar esse produto não poderá acessá-lo novamente!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-    })
-    .then((willDelete) => {
-        if (willDelete) {
-            swal("Poof! Seu produto foi deletado!", {
-                icon: "success",
-            })
-            .then(() => {
-                UpdateList(list_Product, dellProduct, 2);
-                
-                if (JSON.parse(localStorage.getItem("C1_armazem")).length == 0) {
-                    localStorage.removeItem("C1_armazem");
-                }
-            });
-        } 
-    });
-}
-
-function SalvarAlteracaoFechaMes() {
+let LISTA_PRODUTOS_DJE9J97 = [];
+let LISTA_PRODUTOS_DHU7993 = [];
+function CriarNovaFechamentoMes() {
     let litros_DJE9J97 = document.getElementById('litros-modal-DJE9J97').value;
     let km_DJE9J97 = document.getElementById('Km-modal-DJE9J97').value;
     let preco_km_DJE9J97 = document.getElementById('Preco-Km-modal-DJE9J97').value;
@@ -260,18 +83,18 @@ function SalvarAlteracaoFechaMes() {
         };
     
         if (localStorage.getItem("fechamento-mes-DJE9J97")) {
-            list_DJE9J97 = JSON.parse(localStorage.getItem("fechamento-mes-DJE9J97"));
-            list_DHU7993 = JSON.parse(localStorage.getItem("fechamento-mes-DHU7993"));
-            list_DJE9J97.push(objetoFechaMesDJE9J97);
-            list_DHU7993.push(objetoFechaMesDHU7993);
+            LISTA_PRODUTOS_DJE9J97 = JSON.parse(localStorage.getItem("fechamento-mes-DJE9J97"));
+            LISTA_PRODUTOS_DHU7993 = JSON.parse(localStorage.getItem("fechamento-mes-DHU7993"));
+            LISTA_PRODUTOS_DJE9J97.push(objetoFechaMesDJE9J97);
+            LISTA_PRODUTOS_DHU7993.push(objetoFechaMesDHU7993);
     
         } else {
-            list_DHU7993[0] = objetoFechaMesDHU7993;
-            list_DJE9J97[0] = objetoFechaMesDJE9J97;
+            LISTA_PRODUTOS_DHU7993[0] = objetoFechaMesDHU7993;
+            LISTA_PRODUTOS_DJE9J97[0] = objetoFechaMesDJE9J97;
         }
     
-        localStorage.setItem("fechamento-mes-DJE9J97", JSON.stringify(list_DJE9J97));
-        localStorage.setItem("fechamento-mes-DHU7993", JSON.stringify(list_DHU7993));
+        localStorage.setItem("fechamento-mes-DJE9J97", JSON.stringify(LISTA_PRODUTOS_DJE9J97));
+        localStorage.setItem("fechamento-mes-DHU7993", JSON.stringify(LISTA_PRODUTOS_DHU7993));
         document.getElementById('litros-modal-DJE9J97').value = '';
         document.getElementById('Km-modal-DJE9J97').value = '';
         document.getElementById('Preco-Km-modal-DJE9J97').value = '';
@@ -286,20 +109,248 @@ function SalvarAlteracaoFechaMes() {
 
 }
 
-// Change Modal 
+// é responsável pro imprimir os produtos, caso tenha
+function PaginaCaminhaoCarregada() {
+    let somaTotalMes = 0;
+    if (localStorage.getItem(CHAVE_ARMAZEM_DHU7993)) {
+        LISTA_PRODUTOS = JSON.parse(localStorage.getItem(CHAVE_ARMAZEM_DHU7993));
+    
+        for (let i=0; i < LISTA_PRODUTOS.length; i++) {
+            somaTotalMes += ImprimirProdutos(LISTA_PRODUTOS[i]);
+    
+        }
+    }
+    let pValorTotal = document.getElementById("p-total-mes");
+    pValorTotal.innerText = `Valor a pagar este mês: R$${somaTotalMes.toFixed(2)}`;
+}
+
+function AlterarProduto(produtoAlterado) {
+    let nomeModal = document.getElementById("nome-modal");
+    let valorModal = document.getElementById("valor-modal");
+    let qtdModal = document.getElementById("qtd-modal");
+    let parcelasModal = document.getElementById("parcelas-modal");
+
+    if (!(nomeModal == '' || valorModal == '' || qtdModal == '' || parcelasModal == 0)) {
+        produtoAlterado.nome = nomeModal;
+        produtoAlterado.valor = valorModal;
+        produtoAlterado.qtd = qtdModal;
+        produtoAlterado.parcelas = parcelasModal;
+    
+        AtualizarLista (LISTA_PRODUTOS, produtoAlterado, 1);
+    }
+}
+
+function ExcluirProduto (produtoExcluido) {
+    swal({
+        title: "Tem certeza?",
+        text: "Se você deletar esse produto não poderá acessá-lo novamente!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            swal("Poof! Seu produto foi deletado!", {
+                icon: "success",
+            })
+            .then(() => {
+                AtualizarLista(LISTA_PRODUTOS, produtoExcluido, 2);
+                
+                if (JSON.parse(localStorage.getItem(CHAVE_ARMAZEM_DHU7993)).length == 0) {
+                    localStorage.removeItem(CHAVE_ARMAZEM_DHU7993);
+                }
+            });
+        } 
+    });
+}
+
+function ImprimirProdutos(objetoProduto) {
+    
+    // Responsável pro atualizar as parcelas restantes e/ou deleter o produto
+    CalculaParcelasRestantes(objetoProduto);
+
+    let tr = document.createElement(TR);
+    
+    tr.appendChild(CriarTd(objetoProduto.nome));
+    tr.appendChild(CriarTd(objetoProduto.valor));
+    tr.appendChild(CriarTd(objetoProduto.qtd));
+    tr.appendChild(CriarTd(objetoProduto.parcelas));
+    tr.appendChild(CalculaValorMensal(objetoProduto.parcelas, objetoProduto.valor, objetoProduto.qtd));
+    tr.classList.add("Product_item")
+    
+    let conteudo = document.createTextNode("Alterar")
+    let botao = document.createElement("button");
+    // Abrindo modal
+    botao.addEventListener("click", () => {
+        AbreFechaModal()
+        localStorage.setItem("changeProduct", JSON.stringify(objetoProduto));
+
+        document.getElementById("nome-modal").value = objetoProduto.nome;
+        document.getElementById("valor-modal").value = objetoProduto.valor;
+        document.getElementById("qtd-modal").value = objetoProduto.qtd;
+        document.getElementById("parcelas-modal").value = objetoProduto.parcelas;
+
+        let p = document.getElementById('p-modal-header');
+        p.innerText =`Parcelas Restantes: ${objetoProduto.parcelas_restantes}`;
+    })
+    botao.appendChild(conteudo)
+
+    let td = document.createElement(TD);
+    td.classList.add("changeButton");
+    td.appendChild(botao);
+    
+    tr.appendChild(td);
+    let tbodyControleCaminhao = document.getElementById("tbody-controle");
+    tbodyControleCaminhao.appendChild(tr);
+    return (objetoProduto.valor * objetoProduto.qtd)/objetoProduto.parcelas;
+}
+
+function AtualizarLista (LISTA_PRODUTOS, produtoAlterado, acao) {
+
+    for (let i=0; i < LISTA_PRODUTOS.length; i++) {
+        if (LISTA_PRODUTOS[i].id == produtoAlterado.id && acao == 1) {
+            LISTA_PRODUTOS[i] = produtoAlterado;
+            break;
+        }
+
+        if (LISTA_PRODUTOS[i].id == produtoAlterado.id && acao == 2) {
+            LISTA_PRODUTOS.splice(i, 1);
+
+            for (let j=0; j < LISTA_PRODUTOS.length; j++) {
+
+                if (LISTA_PRODUTOS[j].id - 1 < 0) {
+
+                    LISTA_PRODUTOS[j].id = 0;
+                } else {
+
+                    LISTA_PRODUTOS[j].id -= 1;
+                }
+            }
+            break;
+        }
+    }
+
+    localStorage.setItem(CHAVE_ARMAZEM_DHU7993, JSON.stringify(LISTA_PRODUTOS));
+    AbreFechaModal();
+    window.location.reload();
+}
+
+function CriarTd(content) {
+    let td = document.createElement("TD");
+    let textNode = document.createTextNode(content);
+    td.appendChild(textNode);
+    return td;
+}
+
+function CalculaValorMensal(parcelas, valor, qtd) {
+    let td = document.createElement("TD");
+    let valorMensal = (valor*qtd)/parcelas;
+    let textNode = document.createTextNode(valorMensal.toFixed(2));
+    td.appendChild(textNode);
+    return td;
+}
+
+function CalculaParcelasRestantes(Product) {
+    // Obter a data e hora atual
+    var dataAtual = new Date();
+
+    // Obter o dia do mês atual
+    var diaAtual = dataAtual.getDate();
+
+    // Verificar se já é ou passou do dia 25
+    if (diaAtual >= 25 && JSON.parse(localStorage.getItem("verificador-desconta-parcela")) == false) {
+        Product.parcelas_restantes -= 1;
+        LISTA_PRODUTOS = JSON.parse(localStorage.getItem(CHAVE_ARMAZEM_DHU7993));
+        let size = LISTA_PRODUTOS.length;
+        for (let i=0; i < size; i++) {
+            if (LISTA_PRODUTOS[i].id === Product.id) {
+                LISTA_PRODUTOS[i] = Product;
+                
+                if (LISTA_PRODUTOS[i].parcelas_restantes <= 0) {
+                    LISTA_PRODUTOS.splice(i, 1);
+                }
+                break;
+            }
+        }
+        
+        if (list_Product.length == 0) {
+            localStorage.removeItem(CHAVE_ARMAZEM_DHU7993);
+        } else {
+            localStorage.setItem(CHAVE_ARMAZEM_DHU7993, JSON.stringify(list_Product));
+        }
+        // window.location.reload();
+
+        localStorage.setItem("verificador-desconta-parcela", JSON.stringify(true));
+    } 
+
+    if (diaAtual < 25) {
+        localStorage.setItem("verificador-desconta-parcela", JSON.stringify(false));
+    }
+}
+
+// Página do histórico do fechamento do mes
+
+function PaginaHistoricaCarregada() {
+    if (localStorage.getItem("fechamento-mes-DJE9J97")) {
+        LISTA_PRODUTOS_DJE9J97 = JSON.parse(localStorage.getItem("fechamento-mes-DJE9J97"));
+        LISTA_PRODUTOS_DHU7993 = JSON.parse(localStorage.getItem("fechamento-mes-DHU7993"));
+        for (let i=0; i < LISTA_PRODUTOS_DJE9J97.length; i++) {
+            ImprimirHistoricaFechamentoMesDJE9J97(LISTA_PRODUTOS_DJE9J97[i]);
+            ImprimirHitoricoFechamentoMesDHU7993(LISTA_PRODUTOS_DHU7993[i]);
+        }
+    }
+}
+
+function ImprimirHistoricaFechamentoMesDJE9J97(objetoFechaMes) {
+    let tbody_DJE9J97 = document.getElementById('tbody-historico-fecha-mes-DJE9J97');
+    let tr = document.createElement(TR);
+
+    tr.appendChild(CriarTd(objetoFechaMes.litros));
+    tr.appendChild(CriarTd(objetoFechaMes.km));
+
+    let pd_preco_km = CriarTd(objetoFechaMes.preco_km);
+    pd_preco_km.classList.add("pd-preco-km"); 
+    tr.appendChild(pd_preco_km);
+
+    tr.appendChild(CriarTd(objetoFechaMes.valor_bruto));
+    tr.appendChild(CriarTd(objetoFechaMes.data));
+    tr.classList.add("Product_item");
+    
+    tbody_DJE9J97.appendChild(tr);
+}
+
+function ImprimirHitoricoFechamentoMesDHU7993(objetoFechaMes) {
+    let tbody_DHU7993 = document.getElementById('tbody-historico-fecha-mes-DHU7993');
+    let tr = document.createElement(TR);
+
+    tr.appendChild(CriarTd(objetoFechaMes.litros));
+    tr.appendChild(CriarTd(objetoFechaMes.km));
+    
+    let pd_preco_km = CriarTd(objetoFechaMes.preco_km);
+    pd_preco_km.classList.add("pd-preco-km"); 
+    tr.appendChild(pd_preco_km);
+
+    tr.appendChild(CriarTd(objetoFechaMes.valor_bruto));
+    tr.appendChild(CriarTd(objetoFechaMes.data));
+    tr.classList.add("Product_item");
+
+    tbody_DHU7993.appendChild(tr);
+}
+
+// Modal de alteração do Produto 
 const modal = document.querySelector("#modal");
 const fade = document.querySelector("#fade");
 
-const toggleModal = () => {
+const AbreFechaModal = () => {
     modal.classList.toggle("hide");
     fade.classList.toggle("hide");
 }
 
-// Fechar mês Modal
+// Modal de fechamento do mes
 const modalFechaMes = document.querySelector("#modal-fecha-mes");
 const fadeFechaMes = document.querySelector("#fade-fecha-mes");
 
-const toggleModalFechaMes = () => {
+const AbreFechaModalFechaMes = () => {
     modalFechaMes.classList.toggle("hide");
     fadeFechaMes.classList.toggle("hide");
 }
