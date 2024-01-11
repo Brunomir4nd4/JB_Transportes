@@ -400,9 +400,11 @@ select, input, #button-submit{
     }
 
     #qtd, #parcelas {
-        width: 70px;
+        width: 55px;
     }
-    
+    #tabela {
+        border: 1px solid red;
+    }
     #nome, #valor, #qtd, #parcelas, #button-submit {
         margin: auto;
         margin-right: 10px;
@@ -411,10 +413,16 @@ select, input, #button-submit{
         margin-bottom: 10px;
         border-radius: 5px;
     }
-    
+
+    #td-button-submit {
+        border: 1px solid red;
+    }
+
     #button-submit {
-        width: 100px;
+        width: 70px;
         height: 35px;
+        font-size: .8rem;
+        border: 1px solid blue;
     }
 
     #main-deposito {
@@ -441,6 +449,11 @@ select, input, #button-submit{
         font-weight: bold;
         text-align: center;
         margin-bottom: 8px;
+    }
+
+    #tbody-controle td{
+        margin: 0;
+        padding: 5px;
     }
 
     #button-submit {

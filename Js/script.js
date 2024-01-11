@@ -4,6 +4,7 @@ let PRODUTO = {
     valor: 0,
     qtd: 0,
     parcelas: 0,
+    data: "",
     parcelas_restantes: 0
 };
 
@@ -34,6 +35,7 @@ function CriarNovoProduto() {
     PRODUTO.valor = document.getElementById("valor").value;
     PRODUTO.qtd = document.getElementById("qtd").value;
     PRODUTO.parcelas = document.getElementById("parcelas").value;
+    PRODUTO.data = `${(DATA_ATUAL.getDate()).toString().padStart(2, '0')}/${(DATA_ATUAL.getMonth() + 1).toString().padStart(2, '0')}/${DATA_ATUAL.getFullYear() - 2000}`;
     PRODUTO.parcelas_restantes = document.getElementById("parcelas").value;
 
     if (!(PRODUTO.nome == '' || PRODUTO.valor == '' || PRODUTO.qtd ==  '' || PRODUTO.parcelas == 0)) {
@@ -76,12 +78,9 @@ function CriarNovaFechamentoMes() {
 
     if (!(litros_DJE9J97 == '' || km_DJE9J97 == '' || preco_km_DJE9J97 == '' || valor_bruto_DJE9J97 == '' || 
     litros_DHU7993 == '' || km_DHU7993 == '' || preco_km_DHU7993 == '' || valor_bruto_DHU7993 == '')) {
-
-        // Obter a data e hora atual
-        var dataAtual = new Date();
     
         // Obter o dia do mês atual
-        var diaAtual = `${(dataAtual.getDate()).toString().padStart(2, '0')}/${(dataAtual.getMonth() + 1).toString().padStart(2, '0')}/${dataAtual.getFullYear() - 2000}`;
+        var diaAtual = `${(DATA_ATUAL.getDate()).toString().padStart(2, '0')}/${(DATA_ATUAL.getMonth() + 1).toString().padStart(2, '0')}/${DATA_ATUAL.getFullYear() - 2000}`;
         let objetoFechaMesDJE9J97 = {
             litros: litros_DJE9J97,
             km: km_DJE9J97,
@@ -196,9 +195,10 @@ function ImprimirProdutos(objetoProduto) {
     tr.appendChild(CriarTd(objetoProduto.qtd));
     tr.appendChild(CriarTd(objetoProduto.parcelas));
     tr.appendChild(CalculaValorMensal(objetoProduto.parcelas, objetoProduto.valor, objetoProduto.qtd));
-    tr.classList.add("Product_item")
+    tr.appendChild(CriarTd(objetoProduto.data));
+    tr.classList.add("Product_item");
     
-    let conteudo = document.createTextNode("Alterar")
+    let conteudo = document.createTextNode("Alterar");
     let botao = document.createElement("button");
     // Abrindo modal
     botao.addEventListener("click", () => {
@@ -212,8 +212,8 @@ function ImprimirProdutos(objetoProduto) {
 
         let p = document.getElementById('p-modal-header');
         p.innerText =`Parcelas Restantes: ${objetoProduto.parcelas_restantes}`;
-    })
-    botao.appendChild(conteudo)
+    });
+    botao.appendChild(conteudo);
 
     let td = document.createElement(TD);
     td.classList.add("changeButton");
