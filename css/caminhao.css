@@ -103,7 +103,7 @@ header {
     margin: auto;
 }
 
-#nome, #valor, #qtd, #parcelas, #button-submit {
+#nome, #valor, #qtd, #parcelas{
     margin: auto 5px;
     padding: 7px;
     margin-bottom: 10px;
@@ -117,20 +117,25 @@ header {
     margin-bottom: 8px;
 }
 
-#button-submit, .changeButton button{
+#button-submit{
+    margin: auto 5px;
+    padding: 7px;
+    margin-bottom: 10px;
+    border-radius: 5px;
     background-color: #FFCC57;
     color: #121317;  
     font-weight: bold;  
-    font-size: 1rem;
     max-width: 100px;
 }
 
 .changeButton button {
+    background-color: #FFCC57;
+    color: #121317;  
+    font-weight: bold;  
     border-radius: 5px;
     border: none;
     padding: 7px;
-    width: 120px;
-    margin: auto;
+    width: 100px;
 }
 
 #button-submit:hover, .changeButton button:hover {
@@ -396,15 +401,13 @@ select, input, #button-submit{
 
     /* Showcase */
     #nome, #valor {
-        width: 130px;
+        width: 120px;
     }
 
     #qtd, #parcelas {
         width: 55px;
     }
-    #tabela {
-        border: 1px solid red;
-    }
+    
     #nome, #valor, #qtd, #parcelas, #button-submit {
         margin: auto;
         margin-right: 10px;
@@ -414,15 +417,20 @@ select, input, #button-submit{
         border-radius: 5px;
     }
 
-    #td-button-submit {
-        border: 1px solid red;
-    }
-
     #button-submit {
         width: 70px;
         height: 35px;
         font-size: .8rem;
-        border: 1px solid blue;
+    }
+
+    .changeButton button {
+        background-color: #FFCC57;
+        color: #121317;  
+        font-weight: bold;  
+        border-radius: 5px;
+        border: none;
+        padding: 7px;
+        width: 70px;
     }
 
     #main-deposito {
@@ -454,10 +462,6 @@ select, input, #button-submit{
     #tbody-controle td{
         margin: 0;
         padding: 5px;
-    }
-
-    #button-submit {
-        margin-left: 25px;
     }
     
     #tbody-historico-fecha-mes-DJE9J97 td, #tbody-historico-fecha-mes-DHU7993 td{

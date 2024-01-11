@@ -13,6 +13,22 @@ const CHAVE_ARMAZEM_DJE9J97 = "C1_armazem";
 const TD = "td";
 const TR = "tr";
 const DATA_ATUAL = new Date();
+// let DIA_DE_ULTIMO_ACESSO = 0;
+// let MES_DE_ULTIMO_ACESSO = 0;
+// let ANO_DE_ULTIMO_ACESSO = 0;
+
+// if (localStorage.getItem("ultimo-dia-de-acesso-do-usuario") && localStorage.getItem("ultimo-mes-de-acesso-do-usuario")) {
+//     DIA_DE_ULTIMO_ACESSO = parseInt(localStorage.getItem('ultimo-dia-de-acesso-do-usuario'));
+//     MES_DE_ULTIMO_ACESSO = parseInt(localStorage.getItem('ultimo-mes-de-acesso-do-usuario'));
+//     ANO_DE_ULTIMO_ACESSO = parseInt(localStorage.getItem('ultimo-ano-de-acesso-do-usuario'));
+    
+//     let tempoEmMesesSemAcesso = CalcularUltimoAcesso(DIA_DE_ULTIMO_ACESSO, MES_DE_ULTIMO_ACESSO, ANO_DE_ULTIMO_ACESSO, DATA_ATUAL);
+//     if (tempoEmMesesSemAcesso != 0) {
+//         DebitaMesesSemAcesso(tempoEmMesesSemAcesso)
+//     }
+// }
+
+// localStorage.clear()
 
 function CriarNovoProduto() {
     PRODUTO.nome = document.getElementById("nome").value;
@@ -285,6 +301,43 @@ function CalculaParcelasRestantes(LISTA_PRODUTOS) {
         localStorage.setItem("verificador-desconta-parcela", JSON.stringify(false));
     }
 }
+
+// function CalcularUltimoAcesso(DIA_DE_ULTIMO_ACESSO, MES_DE_ULTIMO_ACESSO, ANO_DE_ULTIMO_ACESSO, DATA_ATUAL) {
+//     let diferencaEntreMeses = 0;
+
+//     /*
+//         Nessa lógica eu comparo se a ultima vez que acessei o site foi ano passado, se sim o sistema irá
+//         calcular o diferença dos meses da seguinte forma:
+
+//             Sendo o mês atual menor ou igual a 12 vou calcular quantos meses falta para o mes 12 e
+//             ao final somar 1 que é referente ao próprio mês de ultimo acesso. EX:
+//                 MES_DE_ULTIMO_ACESSO = 10 (outubro)
+//                 MES_ATUAL = 2 (fevereiro)
+
+//                 12 - 10 = 2;
+//                 2 + 1 = 3 meses até o final do ano;
+//                 3 + 2 = 5;
+
+//                 ou seja 5 meses entre outubro e fevereiro;
+            
+//             Agora o sistema irá conferir se em outubro já foi feito o débito das parcelas
+//                 Se sim ele irá subtrair 1 mês, ou seja outubro já foi debitado,
+//                 então o verificador de debito das parcelas está como true, logo o sistema irá coloca-lo como false;
+//                 Caso contrário não fará nada
+                
+//     */ 
+    
+//     DATA_ATUAL.getFullYear() > ANO_DE_ULTIMO_ACESSO 
+//     ? diferencaEntreMeses = 12 - MES_DE_ULTIMO_ACESSO + 1 + DATA_ATUAL.getMonth() + 1 
+//     : diferencaEntreMeses = (DATA_ATUAL.getMonth()+1) - MES_DE_ULTIMO_ACESSO + 1;
+
+//     if (DIA_DE_ULTIMO_ACESSO >= 25) {
+//         diferencaEntreMeses -= 1;
+//         localStorage.setItem("verificador-desconta-parcela", JSON.stringify(false));
+//     } 
+    
+//     return diferencaEntreMeses;
+// }
 
 // Página do histórico do fechamento do mes
 function PaginaHistoricoCarregada() {

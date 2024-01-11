@@ -11,13 +11,15 @@ let LISTA_PRODUTOS = [];
 const CHAVE_ARMAZEM_DHU7993 = 'C2_armazem';
 const TD = "td";
 const TR = "tr";
-// localStorage.clear()
+const DATA_ATUAL = new Date();
 
 function CriarNovoProduto() {
     PRODUTO.nome = document.getElementById("nome").value;
-    PRODUTO.valor = document.getElementById("valor").value;
+    PRODUTO.valor = parseFloat(document.getElementById("valor").value);
+    PRODUTO.valor = PRODUTO.valor.toFixed(2);
     PRODUTO.qtd = document.getElementById("qtd").value;
     PRODUTO.parcelas = document.getElementById("parcelas").value;
+    PRODUTO.data = `${(DATA_ATUAL.getDate()).toString().padStart(2, '0')}/${(DATA_ATUAL.getMonth() + 1).toString().padStart(2, '0')}/${DATA_ATUAL.getFullYear() - 2000}`;
     PRODUTO.parcelas_restantes = document.getElementById("parcelas").value;
     
     if (!(PRODUTO.nome == '' || PRODUTO.valor == '' || PRODUTO.qtd ==  '' || PRODUTO.parcelas == 0)) {
@@ -42,6 +44,8 @@ function CriarNovoProduto() {
         // Recarregar a página
         window.location.reload();
 
+    }  else {
+        swal("Falha!", "Todas as áreas devem ser preenchidas e as parcelas tem que ser diferente de 0", "warning")
     }
 }
 
@@ -105,6 +109,8 @@ function CriarNovaFechamentoMes() {
         document.getElementById('Preco-Km-modal-DHU7993').value = '';
         document.getElementById('Valor-Bruto-modal-DHU7993').value = '';
         swal("Secesso!", "Fechamento de mês salvo!", "success");
+    } else {
+        swal("Falha!", "Todas as áreas devem ser preenchidas", "warning")
     }
 
 }
@@ -176,6 +182,7 @@ function ImprimirProdutos(objetoProduto) {
     tr.appendChild(CriarTd(objetoProduto.qtd));
     tr.appendChild(CriarTd(objetoProduto.parcelas));
     tr.appendChild(CalculaValorMensal(objetoProduto.parcelas, objetoProduto.valor, objetoProduto.qtd));
+    tr.appendChild(CriarTd(objetoProduto.data));
     tr.classList.add("Product_item")
     
     let conteudo = document.createTextNode("Alterar")
