@@ -11,6 +11,22 @@ let LISTA_PRODUTOS = [];
 const CHAVE_ARMAZEM_DJE9J97 = "C1_armazem";
 const TD = "td";
 const TR = "tr";
+const DATA_ATUAL = new Date();
+// let DIA_DE_ULTIMO_ACESSO = 0;
+// let MES_DE_ULTIMO_ACESSO = 0;
+// let ANO_DE_ULTIMO_ACESSO = 0;
+
+// if (localStorage.getItem("ultimo-dia-de-acesso-do-usuario") && localStorage.getItem("ultimo-mes-de-acesso-do-usuario")) {
+//     DIA_DE_ULTIMO_ACESSO = parseInt(localStorage.getItem('ultimo-dia-de-acesso-do-usuario'));
+//     MES_DE_ULTIMO_ACESSO = parseInt(localStorage.getItem('ultimo-mes-de-acesso-do-usuario'));
+//     ANO_DE_ULTIMO_ACESSO = parseInt(localStorage.getItem('ultimo-ano-de-acesso-do-usuario'));
+    
+//     let tempoEmMesesSemAcesso = CalcularUltimoAcesso(DIA_DE_ULTIMO_ACESSO, MES_DE_ULTIMO_ACESSO, ANO_DE_ULTIMO_ACESSO, DATA_ATUAL);
+//     if (tempoEmMesesSemAcesso != 0) {
+//         DebitaMesesSemAcesso(tempoEmMesesSemAcesso)
+//     }
+// }
+
 // localStorage.clear()
 
 function CriarNovoProduto() {
@@ -110,10 +126,17 @@ function CriarNovaFechamentoMes() {
 
 // é responsável pro imprimir os produtos, caso tenha
 function PaginaCaminhaoCarregada() {
+    DIA_DE_ULTIMO_ACESSO = DATA_ATUAL.getDate();
+    MES_DE_ULTIMO_ACESSO = DATA_ATUAL.getMonth()+1;
+    ANO_DE_ULTIMO_ACESSO = DATA_ATUAL.getFullYear();
+    localStorage.setItem("ultimo-dia-de-acesso-do-usuario", JSON.stringify(DIA_DE_ULTIMO_ACESSO));
+    localStorage.setItem("ultimo-mes-de-acesso-do-usuario", JSON.stringify(MES_DE_ULTIMO_ACESSO));
+    localStorage.setItem("ultimo-ano-de-acesso-do-usuario", JSON.stringify(ANO_DE_ULTIMO_ACESSO));
+
     let somaTotalMes = 0;
     if (localStorage.getItem(CHAVE_ARMAZEM_DJE9J97)) {
         LISTA_PRODUTOS = JSON.parse(localStorage.getItem(CHAVE_ARMAZEM_DJE9J97));
-    
+        CalculaParcelasRestantes(LISTA_PRODUTOS);
         for (let i=0; i < LISTA_PRODUTOS.length; i++) {
             somaTotalMes += ImprimirProdutos(LISTA_PRODUTOS[i]);
     
@@ -166,10 +189,6 @@ function ExcluirProduto (produtoExcluido) {
 }
 
 function ImprimirProdutos(objetoProduto) {
-    
-    // Responsável pro atualizar as parcelas restantes e/ou deleter o produto
-    CalculaParcelasRestantes(objetoProduto);
-
     let tr = document.createElement(TR);
     
     tr.appendChild(CriarTd(objetoProduto.nome));
@@ -251,39 +270,24 @@ function CalculaValorMensal(parcelas, valor, qtd) {
     return td;
 }
 
-function CalculaParcelasRestantes(objetoProduto) {
-    // Obter a data e hora atual
-    var dataAtual = new Date();
-
+function CalculaParcelasRestantes(LISTA_PRODUTOS) {
     // Obter o dia do mês atual
-    var diaAtual = dataAtual.getDate();
+    var diaAtual = DATA_ATUAL.getDate();
 
     // Verificar se já é ou passou do dia 25
     if (diaAtual >= 25 && JSON.parse(localStorage.getItem("verificador-desconta-parcela")) == false) {
-        objetoProduto.parcelas_restantes -= 1;
-        LISTA_PRODUTOS = JSON.parse(localStorage.getItem(CHAVE_ARMAZEM_DJE9J97));
-        let size = LISTA_PRODUTOS.length;
-        for (let i=0; i < size; i++) {
-            if (LISTA_PRODUTOS[i].id === objetoProduto.id) {
-                LISTA_PRODUTOS[i] = objetoProduto;
-                
-                if (LISTA_PRODUTOS[i].parcelas_restantes <= 0) {
-                    LISTA_PRODUTOS.splice(i, 1);
-                }
-                break;
-            }
-        }
-        
-        // list_Product.length 
-        // ? localStorage.removeItem(CHAVE_ARMAZEM_DJE9J97) 
-        // : localStorage.setItem(CHAVE_ARMAZEM_DJE9J97, JSON.stringify(list_Product));
+        for (let i=0; i < LISTA_PRODUTOS.length; i++) {
 
-        if (LISTA_PRODUTOS.length == 0) {
-            localStorage.removeItem(CHAVE_ARMAZEM_DJE9J97);
-        } else {
-            localStorage.setItem(CHAVE_ARMAZEM_DJE9J97, JSON.stringify(LISTA_PRODUTOS));
+            LISTA_PRODUTOS[i].parcelas_restantes -= 1;
+            if (LISTA_PRODUTOS[i].parcelas_restantes <= 0) {
+                LISTA_PRODUTOS.splice(i, 1);
+            }
+            console.log("Passou aqui")
         }
-        // window.location.reload();
+        LISTA_PRODUTOS.length == 0
+        ? localStorage.removeItem(CHAVE_ARMAZEM_DJE9J97) 
+        : localStorage.setItem(CHAVE_ARMAZEM_DJE9J97, JSON.stringify(LISTA_PRODUTOS));
+        window.location.reload();
 
         localStorage.setItem("verificador-desconta-parcela", JSON.stringify(true));
     } 
@@ -293,10 +297,45 @@ function CalculaParcelasRestantes(objetoProduto) {
     }
 }
 
+// function CalcularUltimoAcesso(DIA_DE_ULTIMO_ACESSO, MES_DE_ULTIMO_ACESSO, ANO_DE_ULTIMO_ACESSO, DATA_ATUAL) {
+//     let diferencaEntreMeses = 0;
 
+//     /*
+//         Nessa lógica eu comparo se a ultima vez que acessei o site foi ano passado, se sim o sistema irá
+//         calcular o diferença dos meses da seguinte forma:
+
+//             Sendo o mês atual menor ou igual a 12 vou calcular quantos meses falta para o mes 12 e
+//             ao final somar 1 que é referente ao próprio mês de ultimo acesso. EX:
+//                 MES_DE_ULTIMO_ACESSO = 10 (outubro)
+//                 MES_ATUAL = 2 (fevereiro)
+
+//                 12 - 10 = 2;
+//                 2 + 1 = 3 meses até o final do ano;
+//                 3 + 2 = 5;
+
+//                 ou seja 5 meses entre outubro e fevereiro;
+            
+//             Agora o sistema irá conferir se em outubro já foi feito o débito das parcelas
+//                 Se sim ele irá subtrair 1 mês, ou seja outubro já foi debitado,
+//                 então o verificador de debito das parcelas está como true, logo o sistema irá coloca-lo como false;
+//                 Caso contrário não fará nada
+                
+//     */ 
+    
+//     DATA_ATUAL.getFullYear() > ANO_DE_ULTIMO_ACESSO 
+//     ? diferencaEntreMeses = 12 - MES_DE_ULTIMO_ACESSO + 1 + DATA_ATUAL.getMonth() + 1 
+//     : diferencaEntreMeses = (DATA_ATUAL.getMonth()+1) - MES_DE_ULTIMO_ACESSO + 1;
+
+//     if (DIA_DE_ULTIMO_ACESSO >= 25) {
+//         diferencaEntreMeses -= 1;
+//         localStorage.setItem("verificador-desconta-parcela", JSON.stringify(false));
+//     } 
+    
+//     return diferencaEntreMeses;
+// }
 
 // Página do histórico do fechamento do mes
-function PaginaHistoricaCarregada() {
+function PaginaHistoricoCarregada() {
     if (localStorage.getItem("fechamento-mes-DJE9J97")) {
         LISTA_PRODUTOS_DJE9J97 = JSON.parse(localStorage.getItem("fechamento-mes-DJE9J97"));
         LISTA_PRODUTOS_DHU7993 = JSON.parse(localStorage.getItem("fechamento-mes-DHU7993"));
