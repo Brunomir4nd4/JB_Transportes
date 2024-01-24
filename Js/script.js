@@ -50,8 +50,8 @@ function CriarNovoProduto() {
     
 }
 
-let LISTA_PRODUTOS_DJE9J97 = [];
-let LISTA_PRODUTOS_DHU7993 = [];
+let LISTA_FECHAMENTO_MES_DJE9J97 = [];
+let LISTA_FECHAMENTO_MES_DHU7993 = [];
 function CriarNovaFechamentoMes() {
     let litros_DJE9J97 = document.getElementById('litros-modal-DJE9J97').value;
     let km_DJE9J97 = document.getElementById('Km-modal-DJE9J97').value;
@@ -69,6 +69,7 @@ function CriarNovaFechamentoMes() {
         // Obter o dia do mês atual
         var diaAtual = `${(DATA_ATUAL.getDate()).toString().padStart(2, '0')}/${(DATA_ATUAL.getMonth() + 1).toString().padStart(2, '0')}/${DATA_ATUAL.getFullYear() - 2000}`;
         let objetoFechaMesDJE9J97 = {
+            id: 0,
             litros: litros_DJE9J97,
             km: km_DJE9J97,
             preco_km: preco_km_DJE9J97,
@@ -77,6 +78,7 @@ function CriarNovaFechamentoMes() {
         };
     
         let objetoFechaMesDHU7993 = {
+            id: 0,
             litros: litros_DHU7993,
             km: km_DHU7993,
             preco_km: preco_km_DHU7993,
@@ -85,18 +87,20 @@ function CriarNovaFechamentoMes() {
         };
     
         if (localStorage.getItem("fechamento-mes-DJE9J97")) {
-            LISTA_PRODUTOS_DJE9J97 = JSON.parse(localStorage.getItem("fechamento-mes-DJE9J97"));
-            LISTA_PRODUTOS_DHU7993 = JSON.parse(localStorage.getItem("fechamento-mes-DHU7993"));
-            LISTA_PRODUTOS_DJE9J97.push(objetoFechaMesDJE9J97);
-            LISTA_PRODUTOS_DHU7993.push(objetoFechaMesDHU7993);
+            LISTA_FECHAMENTO_MES_DJE9J97 = JSON.parse(localStorage.getItem("fechamento-mes-DJE9J97"));
+            LISTA_FECHAMENTO_MES_DHU7993 = JSON.parse(localStorage.getItem("fechamento-mes-DHU7993"));
+            objetoFechaMesDJE9J97.id = LISTA_FECHAMENTO_MES_DJE9J97[LISTA_FECHAMENTO_MES_DJE9J97.length - 1].id + 1;
+            objetoFechaMesDHU7993.id = LISTA_FECHAMENTO_MES_DHU7993[LISTA_FECHAMENTO_MES_DHU7993.length - 1].id + 1;
+            LISTA_FECHAMENTO_MES_DJE9J97.push(objetoFechaMesDJE9J97);
+            LISTA_FECHAMENTO_MES_DHU7993.push(objetoFechaMesDHU7993);
     
         } else {
-            LISTA_PRODUTOS_DHU7993[0] = objetoFechaMesDHU7993;
-            LISTA_PRODUTOS_DJE9J97[0] = objetoFechaMesDJE9J97;
+            LISTA_FECHAMENTO_MES_DHU7993[0] = objetoFechaMesDHU7993;
+            LISTA_FECHAMENTO_MES_DJE9J97[0] = objetoFechaMesDJE9J97;
         }
     
-        localStorage.setItem("fechamento-mes-DJE9J97", JSON.stringify(LISTA_PRODUTOS_DJE9J97));
-        localStorage.setItem("fechamento-mes-DHU7993", JSON.stringify(LISTA_PRODUTOS_DHU7993));
+        localStorage.setItem("fechamento-mes-DJE9J97", JSON.stringify(LISTA_FECHAMENTO_MES_DJE9J97));
+        localStorage.setItem("fechamento-mes-DHU7993", JSON.stringify(LISTA_FECHAMENTO_MES_DHU7993));
         document.getElementById('litros-modal-DJE9J97').value = '';
         document.getElementById('Km-modal-DJE9J97').value = '';
         document.getElementById('Preco-Km-modal-DJE9J97').value = '';
@@ -114,13 +118,6 @@ function CriarNovaFechamentoMes() {
 
 // é responsável pro imprimir os produtos, caso tenha
 function PaginaCaminhaoCarregada() {
-    DIA_DE_ULTIMO_ACESSO = DATA_ATUAL.getDate();
-    MES_DE_ULTIMO_ACESSO = DATA_ATUAL.getMonth()+1;
-    ANO_DE_ULTIMO_ACESSO = DATA_ATUAL.getFullYear();
-    localStorage.setItem("ultimo-dia-de-acesso-do-usuario", JSON.stringify(DIA_DE_ULTIMO_ACESSO));
-    localStorage.setItem("ultimo-mes-de-acesso-do-usuario", JSON.stringify(MES_DE_ULTIMO_ACESSO));
-    localStorage.setItem("ultimo-ano-de-acesso-do-usuario", JSON.stringify(ANO_DE_ULTIMO_ACESSO));
-
     let somaTotalMes = 0;
     if (localStorage.getItem(CHAVE_ARMAZEM_DJE9J97)) {
         LISTA_PRODUTOS = JSON.parse(localStorage.getItem(CHAVE_ARMAZEM_DJE9J97));
@@ -214,6 +211,40 @@ function ImprimirProdutos(objetoProduto) {
     return (objetoProduto.valor * objetoProduto.qtd)/objetoProduto.parcelas;
 }
 
+function AlterarFechamentoMes(objetofechamentoAteradoDJE9J97, objetoFechamentoAteradoDHU7993) {
+    let litros_DJE9J97 = document.getElementById("litros-modal-DJE9J97").value;
+    let km_DJE9J97 = document.getElementById("Km-modal-DJE9J97").value;
+    let preco_km_DJE9J97 = document.getElementById("Preco-Km-modal-DJE9J97").value;
+    let valor_bruto_DJE9J97 = document.getElementById("Valor-Bruto-modal-DJE9J97").value;
+    
+    let litros_DHU7993 = document.getElementById("litros-modal-DHU7993").value;
+    let km_DHU7993 = document.getElementById("Km-modal-DHU7993").value;
+    let preco_km_DHU7993 = document.getElementById("Preco-Km-modal-DHU7993").value;
+    let valor_bruto_DHU7993 = document.getElementById("Valor-Bruto-modal-DHU7993").value;
+
+
+    if (!(litros_DJE9J97 == '' || km_DJE9J97 == '' || preco_km_DJE9J97 == '' || valor_bruto_DJE9J97 == '') || litros_DHU7993 == '' ||
+    km_DHU7993 == '' || preco_km_DHU7993 == '' || valor_bruto_DHU7993 == '') {
+        objetofechamentoAteradoDJE9J97.litros = litros_DJE9J97;
+        objetofechamentoAteradoDJE9J97.km = km_DJE9J97;
+        objetofechamentoAteradoDJE9J97.preco_km = preco_km_DJE9J97;
+        objetofechamentoAteradoDJE9J97.valor_bruto = valor_bruto_DJE9J97;
+        
+        objetoFechamentoAteradoDHU7993.litros = litros_DHU7993;
+        objetoFechamentoAteradoDHU7993.km = km_DHU7993;
+        objetoFechamentoAteradoDHU7993.preco_km = preco_km_DHU7993;
+        objetoFechamentoAteradoDHU7993.valor_bruto = valor_bruto_DHU7993;
+    
+        swal("Secesso!", "Fechamento de mês atualizado!", "success")
+        .then(() => {
+            AtualizarFechamentoMes (LISTA_FECHAMENTO_MES_DJE9J97, LISTA_FECHAMENTO_MES_DHU7993, objetofechamentoAteradoDJE9J97, objetoFechamentoAteradoDHU7993);
+        }) 
+    } else {
+        swal("Falha!", "Todas as áreas devem ser preenchidas", "warning");
+    }
+
+}
+
 function AtualizarLista (LISTA_PRODUTOS, produtoAlterado, acao) {
 
     for (let i=0; i < LISTA_PRODUTOS.length; i++) {
@@ -241,6 +272,22 @@ function AtualizarLista (LISTA_PRODUTOS, produtoAlterado, acao) {
 
     localStorage.setItem(CHAVE_ARMAZEM_DJE9J97, JSON.stringify(LISTA_PRODUTOS));
     AbreFechaModal();
+    window.location.reload();
+}
+
+function AtualizarFechamentoMes(LISTA_FECHAMENTO_MES_DJE9J97, LISTA_FECHAMENTO_MES_DHU7993, objetofechamentoAteradoDJE9J97, objetoFechamentoAteradoDHU7993) {
+    for (let i=0; i < LISTA_FECHAMENTO_MES_DJE9J97.length || i < LISTA_FECHAMENTO_MES_DHU7993.length; i++) {
+        if (LISTA_FECHAMENTO_MES_DJE9J97[i].id == objetofechamentoAteradoDJE9J97.id) {
+            LISTA_FECHAMENTO_MES_DJE9J97[i] = objetofechamentoAteradoDJE9J97;
+        }
+        if (LISTA_FECHAMENTO_MES_DHU7993[i].id == objetoFechamentoAteradoDHU7993.id){
+            LISTA_FECHAMENTO_MES_DHU7993[i] = objetoFechamentoAteradoDHU7993;
+            break;
+        }
+    }
+
+    localStorage.setItem("fechamento-mes-DHU7993", JSON.stringify(LISTA_FECHAMENTO_MES_DHU7993));
+    localStorage.setItem("fechamento-mes-DJE9J97", JSON.stringify(LISTA_FECHAMENTO_MES_DJE9J97));
     window.location.reload();
 }
 
@@ -289,11 +336,11 @@ function CalculaParcelasRestantes(LISTA_PRODUTOS) {
 // Página do histórico do fechamento do mes
 function PaginaHistoricoCarregada() {
     if (localStorage.getItem("fechamento-mes-DJE9J97")) {
-        LISTA_PRODUTOS_DJE9J97 = JSON.parse(localStorage.getItem("fechamento-mes-DJE9J97"));
-        LISTA_PRODUTOS_DHU7993 = JSON.parse(localStorage.getItem("fechamento-mes-DHU7993"));
-        for (let i=0; i < LISTA_PRODUTOS_DJE9J97.length; i++) {
-            ImprimirHistoricaFechamentoMesDJE9J97(LISTA_PRODUTOS_DJE9J97[i]);
-            ImprimirHitoricoFechamentoMesDHU7993(LISTA_PRODUTOS_DHU7993[i]);
+        LISTA_FECHAMENTO_MES_DJE9J97 = JSON.parse(localStorage.getItem("fechamento-mes-DJE9J97"));
+        LISTA_FECHAMENTO_MES_DHU7993 = JSON.parse(localStorage.getItem("fechamento-mes-DHU7993"));
+        for (let i=0; i < LISTA_FECHAMENTO_MES_DJE9J97.length; i++) {
+            ImprimirHistoricaFechamentoMesDJE9J97(LISTA_FECHAMENTO_MES_DJE9J97[i]);
+            ImprimirHitoricoFechamentoMesDHU7993(LISTA_FECHAMENTO_MES_DHU7993[i]);
         }
     }
 }
@@ -312,6 +359,27 @@ function ImprimirHistoricaFechamentoMesDJE9J97(objetoFechaMes) {
     tr.appendChild(CriarTd(objetoFechaMes.valor_bruto));
     tr.appendChild(CriarTd(objetoFechaMes.data));
     tr.classList.add("Product_item");
+    tr.addEventListener("click", () => {
+        AbreFechaModalFechaMes();
+        document.getElementById("litros-modal-DJE9J97").value = objetoFechaMes.litros;
+        document.getElementById("Km-modal-DJE9J97").value = objetoFechaMes.km;
+        document.getElementById("Preco-Km-modal-DJE9J97").value = objetoFechaMes.preco_km;
+        document.getElementById("Valor-Bruto-modal-DJE9J97").value = objetoFechaMes.valor_bruto;
+        localStorage.setItem("objeto-alterado-DJE9J97", JSON.stringify(objetoFechaMes));
+        
+        
+        LISTA_FECHAMENTO_MES_DHU7993 = JSON.parse(localStorage.getItem("fechamento-mes-DHU7993"));
+        for (let i=0; i < LISTA_FECHAMENTO_MES_DHU7993.length; i++) {
+            if (LISTA_FECHAMENTO_MES_DHU7993[i].id == objetoFechaMes.id) {
+                document.getElementById("litros-modal-DHU7993").value = LISTA_FECHAMENTO_MES_DHU7993[i].litros;
+                document.getElementById("Km-modal-DHU7993").value = LISTA_FECHAMENTO_MES_DHU7993[i].km;
+                document.getElementById("Preco-Km-modal-DHU7993").value = LISTA_FECHAMENTO_MES_DHU7993[i].preco_km;
+                document.getElementById("Valor-Bruto-modal-DHU7993").value = LISTA_FECHAMENTO_MES_DHU7993[i].valor_bruto;
+                localStorage.setItem("objeto-alterado-DHU7993", JSON.stringify(LISTA_FECHAMENTO_MES_DHU7993[i]));
+            }
+        }
+
+    })
     
     tbody_DJE9J97.appendChild(tr);
 }

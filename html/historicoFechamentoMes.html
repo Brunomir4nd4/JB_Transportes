@@ -7,12 +7,14 @@
     <link rel="shortcut icon" href="../img/favicon.jpeg" type="image/x-icon">
     <link rel="stylesheet" href="../css/caminhao.css">
 </head>
-<body onload="PaginaHistoricaCarregada()">
+<body onload="PaginaHistoricoCarregada()">
 
     <header>
         <div id="navbar-conteiner">
             <a href="../index.html"><img src="../img/Logo.jpeg" alt="Logo"></a>
             <nav>
+                <a class="navbar-item" href="caminhao1.html">DJE9J97</a>
+                <a class="navbar-item" href="caminhao2.html">DHU7993</a>
                 <a class="navbar-item" href="../index.html">Home</a>
             </nav>
         </div>
@@ -55,8 +57,77 @@
                 </table>
             </div>
         </div>
+        
+
+        <!----------------- Modal para Alterar o fechamento do mês ----------------->
+
+        <div id="fade-fecha-mes" class="hide"></div>
+        <div id="modal-fecha-mes" class="hide">
+            <div id="modal-header-fecha-mes">
+                <h2 id="h2-modal-header">Alterar Fechamento do Mês</h2>
+            </div>
+            <div id="modal-body-fecha-mes">
+
+                <p class="p-modal-fecha-mes">DJE9J97</p>
+                <table id="tabela">
+                    <thead>
+                        <tr>
+                            <th>Litros</th>
+                            <th>Km</th>
+                            <th>Preço P/ Km</th>
+                            <th>Valor Bruto</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody id="tbody-fecha-mes">
+                        <tr>
+                            <td>
+                                <input type="number" id="litros-modal-DJE9J97" placeholder="Litros">
+                            </td>
+                            <td>
+                                <input type="number" id="Km-modal-DJE9J97" placeholder="Km">
+                            </td>
+                            <td>
+                                <input type="number" id="Preco-Km-modal-DJE9J97" placeholder="Preço P/ Km">
+                            </td>
+                            <td>
+                                <input type="number" id="Valor-Bruto-modal-DJE9J97" placeholder="Valor Bruto">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="p-modal-fecha-mes">DHU7993</p>
+                <table id="tabela">
+    
+                    <tbody id="tbody-fecha-mes">
+                        <tr>
+                            <td>
+                                <input type="number" id="litros-modal-DHU7993" placeholder="Litros">
+                            </td>
+                            <td>
+                                <input type="number" id="Km-modal-DHU7993" placeholder="Km">
+                            </td>
+                            <td>
+                                <input type="number" id="Preco-Km-modal-DHU7993" placeholder="Preço P/ Km">
+                            </td>
+                            <td>
+                                <input type="number" id="Valor-Bruto-modal-DHU7993" placeholder="Valor Bruto">
+                            </td>
+                        </tr>
+    
+                    </tbody>
+                </table>
+
+                <div id="modal-buttons">
+                    <button id="chage-button-modal" onclick="AlterarFechamentoMes(JSON.parse(localStorage.getItem('objeto-alterado-DJE9J97')), JSON.parse(localStorage.getItem('objeto-alterado-DHU7993')))">Salvar Alteração</button> 
+                    <button id="close-modal" onclick="AbreFechaModalFechaMes()">Fechar</button> 
+                </div>
+            </div>
+        </div>
     </main>
     
 </body>
 <script src="../Js/script.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </html>
